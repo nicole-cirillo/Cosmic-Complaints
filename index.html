@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Complaints - Registro Reclami Intergalattico</title>
+
+    <!-- Font Google: Inter (testi generali) e JetBrains Mono (dati e telemetria) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icone Google: Material Symbols Rounded -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
+    <style>
+        /* ==========================================================================
+       VARIABILI CSS (DESIGN SYSTEM COSMICO)
+       Colori, font, bordi arrotondati e ombre definiti in :root
+       ========================================================================== */
+        :root {
+            /* Palette Colori del Design System */
+            --plum-bg: #5C2751;
+            --plum-dark: #3d1936;
+            --plum-deep: #240822;
+            --plum-lowest: #140316;
+            --purple-box: #6457A6;
+            --periwinkle: #9DACFF;
+            --cyan-accent: #76E5FC;
+            --cyan-btn: #4BC0D9;
+            --alert-crit: #FF6B8B;
+            --success-glow: #5EEDB4;
+
+            /* Tipografia */
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* Raggi di curvatura */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-full: 9999px;
+
+            /* Ombre ed effetti di luminescenza */
+            --glow-cyan: 0 0 12px rgba(118, 229, 252, 0.35);
+            --glow-cyan-btn: 0 0 20px rgba(75, 192, 217, 0.45);
+            --glow-crit: 0 0 12px rgba(255, 107, 139, 0.4);
+        }
+
+        /* ==========================================================================
+       RESET E STRUTTURA DI BASE (MOBILE-FIRST)
+       Centrato con max-width 420px sugli schermi più ampi
+       ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--plum-lowest);
+            font-family: var(--font-mono);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* Contenitore mobile centrato */
+        .app-viewport {
+            width: 100%;
+            max-width: 420px;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 82% 12%, rgba(100, 87, 166, 0.42) 0%, rgba(92, 39, 81, 0.28) 35%, transparent 65%),
+                radial-gradient(circle at 18% 45%, rgba(75, 192, 217, 0.18) 0%, rgba(118, 229, 252, 0.08) 30%, transparent 60%),
+                radial-gradient(circle at 25% 82%, rgba(100, 87, 166, 0.32) 0%, rgba(92, 39, 81, 0.2) 40%, transparent 65%),
+                radial-gradient(circle at 75% 75%, rgba(118, 229, 252, 0.12) 0%, transparent 50%),
+                linear-gradient(180deg, rgb(36, 8, 34) 0%, rgb(28, 5, 26) 35%, rgb(19, 3, 21) 70%, rgb(10, 1, 13) 100%);
+            position: relative;
+            padding: 12px 16px 20px 16px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Sfondo decorativo con costellazioni e stelle vettoriali */
+        .space-background {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .space-background svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Contenuto dell'interfaccia */
+        .app-content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .material-symbols-rounded {
+            font-size: 16px;
+            display: inline-flex;
+            vertical-align: middle;
+            user-select: none;
+        }
+
+        /* ==========================================================================
+       HEADER (INTESTAZIONE)
+       Logo con icona, nome app, versione e codice utente
+       ========================================================================== */
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(157, 172, 255, 0.2);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-logo-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(118, 229, 252, 0.7);
+            background: rgba(100, 87, 166, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(118, 229, 252, 0.25);
+        }
+
+        .brand-logo-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--cyan-accent);
+        }
+
+        .brand-title {
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        .brand-version {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            background: rgba(100, 87, 166, 0.4);
+            color: var(--cyan-accent);
+            padding: 2px 5px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(118, 229, 252, 0.3);
+            box-shadow: 0 0 6px rgba(118, 229, 252, 0.15);
+            margin-left: 4px;
+        }
+
+        .user-docket-badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid rgba(157, 172, 255, 0.3);
+            padding: 3px 8px;
+            border-radius: var(--radius-sm);
+            background: rgba(100, 87, 166, 0.2);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .user-docket-badge .dot-active {
+            width: 5px;
+            height: 5px;
+            border-radius: var(--radius-full);
+            background-color: var(--cyan-accent);
+            box-shadow: 0 0 5px var(--cyan-accent);
+            animation: pulseAnimation 2s infinite;
+        }
+
+        /* ==========================================================================
+       SCHEDA HERO AMMINISTRATIVA (DOSSIER STATUS)
+       Titolo, timbro ufficiale "Registro Unico" e stato di avanzamento
+       ========================================================================== */
+        .admin-card {
+            position: relative;
+            border-radius: var(--radius-lg);
+            background: rgba(100, 87, 166, 0.28);
+            border: 1px solid rgba(157, 172, 255, 0.3);
+            padding: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .admin-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.08;
+            background-image: radial-gradient(var(--periwinkle) 1px, transparent 1px);
+            background-size: 10px 10px;
+        }
+
+        /* Timbro burocratico ruotato a -6 gradi */
+        .bureaucratic-stamp {
+            position: absolute;
+            right: -8px;
+            top: -8px;
+            width: 125px;
+            height: 125px;
+            pointer-events: none;
+            transform: rotate(-6deg);
+            opacity: 0.9;
+            filter: drop-shadow(0 0 10px rgba(118, 229, 252, 0.35));
+            z-index: 1;
+        }
+
+        .admin-metadata-row {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+            font-family: var(--font-mono);
+            font-size: 9.5px;
+        }
+
+        .meta-tag {
+            background: rgba(61, 25, 54, 0.85);
+            border: 1px solid rgba(157, 172, 255, 0.3);
+            color: rgba(157, 172, 255, 0.9);
+            padding: 2px 7px;
+            border-radius: var(--radius-sm);
+            white-space: nowrap;
+        }
+
+        /* Badge dello stato di elaborazione pratica */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 9.5px;
+            border: 1px solid rgba(118, 229, 252, 0.5);
+            background: rgba(118, 229, 252, 0.15);
+            color: var(--cyan-accent);
+            box-shadow: 0 0 8px rgba(118, 229, 252, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .status-badge .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: var(--radius-full);
+            background-color: var(--cyan-accent);
+            box-shadow: 0 0 4px var(--cyan-accent);
+            animation: pulseAnimation 1.5s infinite;
+        }
+
+        /* Stato verifica (giallo/ambra) */
+        .status-badge.status-verifying {
+            border-color: #ffd166;
+            background: rgba(255, 209, 102, 0.18);
+            color: #ffd166;
+            box-shadow: 0 0 10px rgba(255, 209, 102, 0.35);
+        }
+
+        .status-badge.status-verifying .status-dot {
+            background-color: #ffd166;
+            box-shadow: 0 0 6px #ffd166;
+        }
+
+        /* Stato approvata (verde/ciano brillante) */
+        .status-badge.status-approved {
+            border-color: var(--success-glow);
+            background: rgba(94, 237, 180, 0.18);
+            color: var(--success-glow);
+            box-shadow: 0 0 12px rgba(94, 237, 180, 0.4);
+        }
+
+        .status-badge.status-approved .status-dot {
+            background-color: var(--success-glow);
+            box-shadow: 0 0 6px var(--success-glow);
+        }
+
+        /* Stato negata (rosso/rosa d'allerta) */
+        .status-badge.status-denied {
+            border-color: var(--alert-crit);
+            background: rgba(255, 107, 139, 0.2);
+            color: var(--alert-crit);
+            box-shadow: 0 0 12px rgba(255, 107, 139, 0.4);
+        }
+
+        .status-badge.status-denied .status-dot {
+            background-color: var(--alert-crit);
+            box-shadow: 0 0 6px var(--alert-crit);
+        }
+
+        .admin-title {
+            position: relative;
+            z-index: 2;
+            font-family: var(--font-sans);
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.3;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .admin-subtitle {
+            position: relative;
+            z-index: 2;
+            font-family: var(--font-sans);
+            font-size: 12.5px;
+            line-height: 1.45;
+            color: var(--periwinkle);
+            max-width: 255px;
+        }
+
+        /* ==========================================================================
+       SEZIONE 1: CATEGORIA RECLAMO (GRIGLIA 2x2)
+       Quattro pulsanti interattivi con codice di settore e radio box
+       ========================================================================== */
+        .section-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(157, 172, 255, 0.25);
+            padding-bottom: 4px;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--cyan-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .section-label::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--cyan-accent);
+            border-radius: 1px;
+        }
+
+        .section-counter {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--periwinkle);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .category-card {
+            background: rgba(100, 87, 166, 0.25);
+            border: 1px solid rgba(157, 172, 255, 0.3);
+            border-radius: var(--radius-md);
+            padding: 8px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .category-card:hover {
+            border-color: rgba(157, 172, 255, 0.6);
+            background: rgba(100, 87, 166, 0.35);
+        }
+
+        .category-card:active {
+            transform: scale(0.98);
+        }
+
+        /* Box quadrato stile checkbox/radio */
+        .cat-radio-box {
+            width: 14px;
+            height: 14px;
+            border-radius: 2px;
+            border: 1px solid rgba(157, 172, 255, 0.6);
+            background: rgba(61, 25, 54, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .cat-radio-box .radio-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 1px;
+            background-color: var(--cyan-accent);
+            box-shadow: 0 0 5px var(--cyan-accent);
+            display: none;
+        }
+
+        .cat-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .cat-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 2px;
+        }
+
+        .cat-meta-row .material-symbols-rounded {
+            font-size: 13px;
+            color: var(--periwinkle);
+        }
+
+        .cat-sec-code {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: rgba(157, 172, 255, 0.7);
+        }
+
+        .cat-title {
+            font-family: var(--font-sans);
+            font-size: 11.5px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Aspetto della categoria SELEZIONATA */
+        .category-card.is-selected {
+            border-color: var(--cyan-accent);
+            background: rgba(100, 87, 166, 0.65);
+            box-shadow: 0 0 12px rgba(118, 229, 252, 0.25);
+        }
+
+        .category-card.is-selected .cat-radio-box {
+            border-color: var(--cyan-accent);
+            background: var(--plum-dark);
+        }
+
+        .category-card.is-selected .radio-dot {
+            display: block;
+        }
+
+        .category-card.is-selected .cat-meta-row .material-symbols-rounded,
+        .category-card.is-selected .cat-sec-code,
+        .category-card.is-selected .cat-title {
+            color: var(--cyan-accent);
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+       SEZIONE 2: CORPO DEL RECLAMO (TERMINALE E CONTATORE)
+       Textarea stile modulo telemetrico con contatore 280 caratteri
+       ========================================================================== */
+        .complaint-label-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 2px;
+        }
+
+        .complaint-main-label {
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .complaint-limit-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--periwinkle);
+        }
+
+        .terminal-container {
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(157, 172, 255, 0.3);
+            background: rgba(100, 87, 166, 0.28);
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .terminal-container:focus-within {
+            border-color: var(--cyan-accent);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .terminal-top-bar {
+            background: rgba(61, 25, 54, 0.85);
+            padding: 5px 10px;
+            border-bottom: 1px solid rgba(157, 172, 255, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+        }
+
+        .terminal-top-bar .bar-title {
+            font-size: 9.5px;
+            color: rgba(118, 229, 252, 0.9);
+            letter-spacing: 0.05em;
+        }
+
+        .terminal-top-bar .bar-format {
+            font-size: 9px;
+            color: rgba(157, 172, 255, 0.7);
+        }
+
+        .terminal-body {
+            padding: 8px 10px;
+        }
+
+        .terminal-textarea {
+            width: 100%;
+            min-height: 60px;
+            max-height: 120px;
+            background: rgba(44, 0, 38, 0.45);
+            border: 1px solid rgba(157, 172, 255, 0.25);
+            border-radius: var(--radius-sm);
+            padding: 8px;
+            font-family: var(--font-sans);
+            font-size: 12px;
+            line-height: 1.45;
+            color: var(--cyan-accent);
+            resize: none;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .terminal-textarea::placeholder {
+            color: rgba(118, 229, 252, 0.6);
+            font-size: 11px;
+        }
+
+        .terminal-textarea:focus {
+            border-color: var(--cyan-accent);
+        }
+
+        .terminal-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 6px;
+            padding-top: 5px;
+            border-top: 1px dashed rgba(157, 172, 255, 0.2);
+            font-family: var(--font-mono);
+            font-size: 10px;
+        }
+
+        .precision-note {
+            font-style: italic;
+            color: rgba(157, 172, 255, 0.7);
+            font-size: 9.5px;
+        }
+
+        .char-counter {
+            font-weight: 600;
+            color: var(--cyan-accent);
+        }
+
+        .char-counter.is-limit {
+            color: var(--alert-crit);
+            font-weight: 700;
+        }
+
+        /* ==========================================================================
+       SEZIONE 3: LIVELLO DI INGIUSTIZIA COSMICA
+       Segmented control a 4 gradini (Bassa, Media, Alta, Apocalittica)
+       ========================================================================== */
+        .level-selector-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+            padding: 4px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(157, 172, 255, 0.3);
+            background: rgba(100, 87, 166, 0.25);
+        }
+
+        .level-button {
+            background: rgba(100, 87, 166, 0.2);
+            border: 1px solid transparent;
+            border-radius: var(--radius-sm);
+            padding: 6px 2px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            transition: all 0.2s ease;
+        }
+
+        .level-button:hover {
+            border-color: rgba(157, 172, 255, 0.4);
+        }
+
+        .level-button:active {
+            transform: scale(0.97);
+        }
+
+        .level-badge-code {
+            font-size: 8px;
+            line-height: 1;
+            margin-bottom: 2px;
+            font-weight: 500;
+            color: rgba(157, 172, 255, 0.7);
+        }
+
+        .level-text {
+            font-size: 9.5px;
+            font-weight: 500;
+            color: var(--periwinkle);
+            white-space: nowrap;
+        }
+
+        /* Colore di avviso per Apocalittica */
+        .level-button.is-crit .level-badge-code,
+        .level-button.is-crit .level-text {
+            color: var(--alert-crit);
+        }
+
+        /* Stato SELEZIONATO dei livelli 1, 2 e 3 */
+        .level-button.is-selected {
+            background: var(--cyan-accent);
+            border-color: var(--cyan-accent);
+            box-shadow: 0 0 10px rgba(118, 229, 252, 0.35);
+        }
+
+        .level-button.is-selected .level-badge-code {
+            color: rgba(44, 0, 38, 0.85);
+            font-weight: 700;
+        }
+
+        .level-button.is-selected .level-text {
+            color: var(--plum-deep);
+            font-weight: 700;
+        }
+
+        /* Stato SELEZIONATO specifico per Apocalittica */
+        .level-button.is-crit.is-selected {
+            background: var(--alert-crit);
+            border-color: var(--alert-crit);
+            box-shadow: 0 0 12px rgba(255, 107, 139, 0.45);
+        }
+
+        .level-button.is-crit.is-selected .level-badge-code,
+        .level-button.is-crit.is-selected .level-text {
+            color: #1a0208;
+            font-weight: 700;
+        }
+
+        /* ==========================================================================
+       PULSANTE PRINCIPALE (PRIMARY ACTION)
+       Pulsante "INVIA RECLAMO" con animazione di invio
+       ========================================================================== */
+        .submit-button {
+            width: 100%;
+            min-height: 46px;
+            border-radius: var(--radius-md);
+            background: var(--cyan-btn);
+            border: 1px solid var(--cyan-accent);
+            color: var(--plum-deep);
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: var(--glow-cyan-btn), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+            transition: all 0.25s ease;
+        }
+
+        .submit-button:hover:not(:disabled) {
+            background: var(--cyan-accent);
+            box-shadow: 0 0 25px rgba(118, 229, 252, 0.6);
+        }
+
+        .submit-button:active:not(:disabled) {
+            transform: scale(0.98);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.85;
+            cursor: wait;
+        }
+
+        /* ==========================================================================
+       NOTE E FOOTER AMMINISTRATIVO
+       Disclaimer istituzionale con bordo tratteggiato e stringa terminale
+       ========================================================================== */
+        .disclaimer-box {
+            border-radius: var(--radius-md);
+            background: rgba(100, 87, 166, 0.2);
+            border: 1px dashed rgba(157, 172, 255, 0.35);
+            padding: 9px 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .disclaimer-box .material-symbols-rounded {
+            color: var(--cyan-accent);
+            font-size: 16px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .disclaimer-text {
+            font-family: var(--font-sans);
+            font-size: 11px;
+            line-height: 1.4;
+            color: var(--periwinkle);
+        }
+
+        .app-footer {
+            border-top: 1px solid rgba(157, 172, 255, 0.2);
+            padding-top: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: rgba(157, 172, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-active-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .footer-active-status .dot-indicator {
+            width: 5px;
+            height: 5px;
+            border-radius: var(--radius-full);
+            background-color: var(--cyan-accent);
+            box-shadow: 0 0 4px var(--cyan-accent);
+        }
+
+        /* ==========================================================================
+       FINESTRA MODALE DELLA SENTENZA COSMICA
+       Popup con timbro cerimoniale e motivazione burocratica dell'Universo
+       ========================================================================== */
+        .verdict-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(16, 2, 18, 0.88);
+            backdrop-filter: blur(8px);
+            z-index: 50;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .verdict-overlay.is-visible {
+            display: flex;
+            animation: fadeInModal 0.3s ease-out forwards;
+        }
+
+        .verdict-modal {
+            width: 100%;
+            background: rgba(60, 10, 52, 0.95);
+            border: 1px solid var(--periwinkle);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), var(--glow-cyan);
+        }
+
+        .verdict-modal-stamp {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border: 2px dashed;
+            padding: 6px 12px;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            transform: rotate(-10deg);
+            border-radius: var(--radius-sm);
+        }
+
+        .verdict-modal-stamp.stamp-approved {
+            border-color: var(--cyan-accent);
+            color: var(--cyan-accent);
+            box-shadow: 0 0 12px rgba(118, 229, 252, 0.4);
+        }
+
+        .verdict-modal-stamp.stamp-denied {
+            border-color: var(--alert-crit);
+            color: var(--alert-crit);
+            box-shadow: 0 0 12px rgba(255, 107, 139, 0.4);
+        }
+
+        .verdict-header-code {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--periwinkle);
+            margin-bottom: 4px;
+        }
+
+        .verdict-title {
+            font-family: var(--font-sans);
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .verdict-details-box {
+            background: rgba(44, 0, 38, 0.6);
+            border: 1px solid rgba(157, 172, 255, 0.25);
+            border-radius: var(--radius-sm);
+            padding: 10px;
+            margin-bottom: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+        }
+
+        .verdict-detail-item {
+            display: flex;
+            justify-content: space-between;
+            color: var(--periwinkle);
+        }
+
+        .verdict-detail-item span:last-child {
+            color: var(--cyan-accent);
+            font-weight: 600;
+        }
+
+        .verdict-decree-text {
+            font-family: var(--font-sans);
+            font-size: 13px;
+            line-height: 1.5;
+            color: #ffffff;
+            padding: 10px;
+            background: rgba(100, 87, 166, 0.2);
+            border-left: 3px solid var(--cyan-accent);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin-bottom: 16px;
+        }
+
+        .verdict-dismiss-btn {
+            width: 100%;
+            padding: 10px;
+            border-radius: var(--radius-md);
+            background: var(--purple-box);
+            border: 1px solid var(--periwinkle);
+            color: #ffffff;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .verdict-dismiss-btn:hover {
+            background: rgba(100, 87, 166, 0.9);
+            border-color: var(--cyan-accent);
+            box-shadow: 0 0 10px rgba(118, 229, 252, 0.3);
+        }
+
+        .icon-spin {
+            animation: spinAnimation 1s linear infinite;
+        }
+
+        /* ==========================================================================
+       KEYFRAMES ANIMAZIONI
+       ========================================================================== */
+        @keyframes pulseAnimation {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.4;
+                transform: scale(0.9);
+            }
+        }
+
+        @keyframes spinAnimation {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeInModal {
+            from {
+                opacity: 0;
+                transform: scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Contenitore centratore mobile dell'applicazione -->
+    <main class="app-viewport">
+
+        <!-- Illustrazione vettoriale di sfondo: costellazioni, orbite e coordinate -->
+        <div class="space-background" aria-hidden="true">
+            <svg viewBox="0 0 390 884" preserveAspectRatio="none">
+                <defs>
+                    <filter id="glow-star-intense" x="-100%" y="-100%" width="300%" height="300%">
+                        <feGaussianBlur stdDeviation="1.5" result="blur1" />
+                        <feMerge>
+                            <feMergeNode in="blur1" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+                <!-- Linee tratteggiate di costellazione cosmica -->
+                <g stroke="#76E5FC" stroke-width="0.6" stroke-dasharray="2 3" opacity="0.35">
+                    <line x1="28" y1="75" x2="92" y2="115" />
+                    <line x1="92" y1="115" x2="145" y2="38" />
+                    <line x1="145" y1="38" x2="215" y2="58" />
+                    <line x1="215" y1="58" x2="320" y2="75" />
+                    <line x1="25" y1="468" x2="60" y2="515" />
+                    <line x1="60" y1="515" x2="30" y2="545" />
+                    <line x1="82" y1="620" x2="140" y2="660" />
+                    <line x1="335" y1="675" x2="290" y2="810" />
+                </g>
+                <!-- Cerchi orbitali e coordinate celesti -->
+                <g stroke="#9DACFF" stroke-width="0.4" opacity="0.2">
+                    <circle cx="195" cy="420" r="160" stroke-dasharray="3 5" fill="none" />
+                    <circle cx="195" cy="420" r="280" stroke-dasharray="4 8" fill="none" />
+                    <line x1="195" y1="0" x2="195" y2="844" stroke-dasharray="2 6" />
+                </g>
+                <!-- Stelle e punti di riferimento galattici -->
+                <circle cx="28" cy="75" r="1.5" fill="#76E5FC" opacity="0.9" filter="url(#glow-star-intense)" />
+                <circle cx="92" cy="115" r="1.8" fill="#ffffff" opacity="0.95" />
+                <circle cx="215" cy="58" r="1.5" fill="#76E5FC" opacity="0.9" />
+                <circle cx="320" cy="75" r="2" fill="#ffffff" opacity="0.95" />
+                <circle cx="350" cy="180" r="1.4" fill="#76E5FC" opacity="0.9" />
+                <circle cx="25" cy="468" r="1.8" fill="#76E5FC" opacity="0.95" />
+                <circle cx="335" cy="675" r="2" fill="#76E5FC" opacity="0.95" />
+            </svg>
+        </div>
+
+        <!-- Contenuto in primo piano dell'interfaccia utente -->
+        <div class="app-content">
+
+            <!-- ====================================================================
+           1. INTESTAZIONE (HEADER)
+           ==================================================================== -->
+            <header class="app-header">
+                <div class="header-brand">
+                    <div class="brand-logo-icon">
+                        <!-- Icona a spirale galattica -->
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                        </svg>
+                    </div>
+                    <span class="brand-title">COSMIC COMPLAINTS</span>
+                    <span class="brand-version">v2.4.9</span>
+                </div>
+
+                <div class="user-docket-badge">
+                    <span class="material-symbols-rounded">account_circle</span>
+                    <span>[USR-404]</span>
+                    <span class="dot-active"></span>
+                </div>
+            </header>
+
+            <!-- ====================================================================
+           2. SCHEDA HERO AMMINISTRATIVA CON TIMBRO E STATO
+           ==================================================================== -->
+            <section class="admin-card">
+                <!-- Timbro circolare vettoriale "REGISTRO UNICO - UFFICIO UNIVERSO" -->
+                <svg class="bureaucratic-stamp" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="70" cy="70" r="66" stroke="#76E5FC" stroke-width="1.2" stroke-dasharray="3 2"
+                        opacity="0.9" />
+                    <circle cx="70" cy="70" r="62" stroke="#9DACFF" stroke-width="0.7" opacity="0.65" />
+                    <circle cx="70" cy="70" r="45" stroke="#76E5FC" stroke-width="1" stroke-dasharray="2 2"
+                        opacity="0.8" />
+                    <circle cx="70" cy="70" r="41" stroke="#9DACFF" stroke-width="0.6" opacity="0.5" />
+                    <defs>
+                        <path id="stamp-text-arc-top" d="M 18,70 A 52,52 0 0,1 122,70" fill="none" />
+                        <path id="stamp-text-arc-bottom" d="M 122,70 A 52,52 0 0,1 18,70" fill="none" />
+                    </defs>
+                    <text fill="#76E5FC" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700"
+                        letter-spacing="0.22em">
+                        <textPath href="#stamp-text-arc-top" startOffset="50%" text-anchor="middle">REGISTRO UNICO
+                        </textPath>
+                    </text>
+                    <text fill="#9DACFF" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="600"
+                        letter-spacing="0.18em">
+                        <textPath href="#stamp-text-arc-bottom" startOffset="50%" text-anchor="middle">UFFICIO UNIVERSO
+                        </textPath>
+                    </text>
+                    <circle cx="24" cy="70" r="1.8" fill="#76E5FC" />
+                    <circle cx="116" cy="70" r="1.8" fill="#76E5FC" />
+                    <g transform="translate(56, 56)">
+                        <circle cx="14" cy="14" r="13" stroke="#76E5FC" stroke-width="0.8" stroke-dasharray="2 2"
+                            opacity="0.6" />
+                        <polygon points="14,2 17.5,10.5 26,14 17.5,17.5 14,26 10.5,17.5 2,14 10.5,10.5"
+                            fill="rgba(118,229,252,0.12)" stroke="#76E5FC" stroke-width="1" />
+                        <path d="M9.5 14L12.5 17L18.5 11" stroke="#76E5FC" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </g>
+                </svg>
+
+                <!-- Riga metadati burocratici -->
+                <div class="admin-metadata-row">
+                    <span class="meta-tag">[MODULO CC-001/A]</span>
+                    <span class="meta-tag">[PROTOCOLLO: #994-Ω]</span>
+                    <span class="status-badge" id="complaint-status-badge">
+                        <span class="status-dot"></span>
+                        <span id="complaint-status-text">[STATO: IN ATTESA]</span>
+                    </span>
+                </div>
+
+                <h1 class="admin-title">Hai un reclamo da presentare?</h1>
+                <p class="admin-subtitle">L’Universo è disponibile ad ascoltarti. Non promette soluzioni immediate.</p>
+            </section>
+
+            <!-- ====================================================================
+           3. SELEZIONE CATEGORIA RECLAMO (GRIGLIA 2x2)
+           ==================================================================== -->
+            <section class="section-container" aria-label="Selezione Categoria">
+                <div class="section-header">
+                    <span class="section-label">CATEGORIA RECLAMO</span>
+                    <span class="section-counter">01/01</span>
+                </div>
+
+                <div class="category-grid" id="category-container">
+                    <!-- Opzione A: Amore e relazioni (selezionata di default) -->
+                    <button type="button" class="category-card is-selected" data-category="amore" aria-pressed="true">
+                        <div class="cat-radio-box">
+                            <span class="radio-dot"></span>
+                        </div>
+                        <div class="cat-info">
+                            <div class="cat-meta-row">
+                                <span class="material-symbols-rounded">heart_broken</span>
+                                <span class="cat-sec-code">SEC-A</span>
+                            </div>
+                            <span class="cat-title">Amore e relazioni</span>
+                        </div>
+                    </button>
+
+                    <!-- Opzione B: Lavoro e studio -->
+                    <button type="button" class="category-card" data-category="lavoro" aria-pressed="false">
+                        <div class="cat-radio-box">
+                            <span class="radio-dot"></span>
+                        </div>
+                        <div class="cat-info">
+                            <div class="cat-meta-row">
+                                <span class="material-symbols-rounded">work_outline</span>
+                                <span class="cat-sec-code">SEC-B</span>
+                            </div>
+                            <span class="cat-title">Lavoro e studio</span>
+                        </div>
+                    </button>
+
+                    <!-- Opzione C: Sfortuna cosmica -->
+                    <button type="button" class="category-card" data-category="sfortuna" aria-pressed="false">
+                        <div class="cat-radio-box">
+                            <span class="radio-dot"></span>
+                        </div>
+                        <div class="cat-info">
+                            <div class="cat-meta-row">
+                                <span class="material-symbols-rounded">bolt</span>
+                                <span class="cat-sec-code">SEC-C</span>
+                            </div>
+                            <span class="cat-title">Sfortuna cosmica</span>
+                        </div>
+                    </button>
+
+                    <!-- Opzione D: Vita quotidiana -->
+                    <button type="button" class="category-card" data-category="quotidiana" aria-pressed="false">
+                        <div class="cat-radio-box">
+                            <span class="radio-dot"></span>
+                        </div>
+                        <div class="cat-info">
+                            <div class="cat-meta-row">
+                                <span class="material-symbols-rounded">schedule</span>
+                                <span class="cat-sec-code">SEC-D</span>
+                            </div>
+                            <span class="cat-title">Vita quotidiana</span>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+           4. TESTO DEL RECLAMO (TERMINALE CON CONTATORE CARATTERI)
+           ==================================================================== -->
+            <section class="section-container" aria-label="Descrizione del reclamo">
+                <div class="complaint-label-row">
+                    <label for="complaint-input" class="complaint-main-label">Descrivi il tuo reclamo</label>
+                    <span class="complaint-limit-label">[MAX 280 CARATTERI]</span>
+                </div>
+
+                <div class="terminal-container">
+                    <div class="terminal-top-bar">
+                        <span class="bar-title">:: CORPO ATTO PROTOCOLLARE</span>
+                        <span class="bar-format">UTF-8/PLAIN</span>
+                    </div>
+
+                    <div class="terminal-body">
+                        <textarea id="complaint-input" class="terminal-textarea" maxlength="280" rows="2"
+                            placeholder="Esporre l’ingiustizia subita, l’assurdità del destino o l’anomalia temporale riscontrata."></textarea>
+
+                        <div class="terminal-footer">
+                            <span class="precision-note">Precisione metrica richiesta</span>
+                            <span class="char-counter" id="char-counter">0/280</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+           5. LIVELLO DI INGIUSTIZIA COSMICA (SEGMENTED SWITCHER A 4 LIVELLI)
+           ==================================================================== -->
+            <section class="section-container" aria-label="Livello di ingiustizia">
+                <div class="section-header">
+                    <span class="section-label">LIVELLO DI INGIUSTIZIA COSMICA</span>
+                    <span class="section-counter">GRADO CALAMITÀ</span>
+                </div>
+
+                <div class="level-selector-grid" id="level-container">
+                    <button type="button" class="level-button" data-level="bassa">
+                        <span class="level-badge-code">LV.01</span>
+                        <span class="level-text">BASSA</span>
+                    </button>
+
+                    <button type="button" class="level-button" data-level="media">
+                        <span class="level-badge-code">LV.02</span>
+                        <span class="level-text">MEDIA</span>
+                    </button>
+
+                    <!-- Livello Alta selezionato di default come da schermata -->
+                    <button type="button" class="level-button is-selected" data-level="alta">
+                        <span class="level-badge-code">LV.03</span>
+                        <span class="level-text">ALTA</span>
+                    </button>
+
+                    <button type="button" class="level-button is-crit" data-level="apocalittica">
+                        <span class="level-badge-code">CRIT</span>
+                        <span class="level-text">APOCALITTICA</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+           6. PULSANTE D'INVIO RECLAMO (PRIMARY CTA)
+           ==================================================================== -->
+            <div class="action-container">
+                <button type="button" class="submit-button" id="submit-complaint-btn">
+                    <span class="material-symbols-rounded" id="submit-btn-icon">send</span>
+                    <span id="submit-btn-text">INVIA RECLAMO</span>
+                </button>
+            </div>
+
+            <!-- ====================================================================
+           7. NOTA INFORMATIVA E FOOTER DI SISTEMA
+           ==================================================================== -->
+            <div class="disclaimer-box">
+                <span class="material-symbols-rounded">info</span>
+                <p class="disclaimer-text">
+                    Ogni reclamo riceverà una sentenza. L’Universo si riserva il diritto di respingerlo senza preavviso.
+                </p>
+            </div>
+
+            <footer class="app-footer">
+                <span>HASH: 8F2A...9C01</span>
+                <div class="footer-active-status">
+                    <span class="dot-indicator"></span>
+                    <span>TERMINALE BUROCRATICO ATTIVO</span>
+                </div>
+            </footer>
+
+        </div>
+
+        <!-- ====================================================================
+         8. FINESTRA MODALE DELLA SENTENZA COSMICA (POPUP VERDETTO)
+         ==================================================================== -->
+        <div class="verdict-overlay" id="verdict-overlay" role="dialog" aria-modal="true"
+            aria-labelledby="verdict-title">
+            <div class="verdict-modal">
+                <div class="verdict-modal-stamp" id="verdict-modal-stamp">SENTENZA</div>
+                <div class="verdict-header-code" id="verdict-protocol-code">[SENTENZA PROTOCOLLARE: #8841-Ω]</div>
+                <h2 class="verdict-title" id="verdict-title">Delibera Ufficiale</h2>
+
+                <div class="verdict-details-box">
+                    <div class="verdict-detail-item">
+                        <span>SETTORE:</span>
+                        <span id="verdict-detail-category">Amore e relazioni</span>
+                    </div>
+                    <div class="verdict-detail-item">
+                        <span>CALAMITÀ:</span>
+                        <span id="verdict-detail-level">ALTA</span>
+                    </div>
+                    <div class="verdict-detail-item">
+                        <span>ESITO FINALE:</span>
+                        <span id="verdict-detail-status">APPROVATA</span>
+                    </div>
+                </div>
+
+                <p class="verdict-decree-text" id="verdict-decree-text">
+                    Motivazione del Tribunale Cosmico in elaborazione...
+                </p>
+
+                <button type="button" class="verdict-dismiss-btn" id="verdict-dismiss-btn">
+                    ARCHIVIA E NUOVO RECLAMO
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ==========================================================================
+       LOGICA JAVASCRIPT VANILLA
+       Didattico, lineare e commentato per principianti assoluti
+       ========================================================================== -->
+    <script>
+        /* === 1. VARIABILI DI STATO DELL'APPLICAZIONE === */
+        // Memorizziamo la categoria e il livello selezionati dall'utente
+        let selectedCategory = 'amore';
+        let selectedLevel = 'alta';
+        let isTransmitting = false;
+
+        // Riferimenti agli elementi HTML principali della pagina
+        const categoryContainer = document.querySelector('#category-container');
+        const categoryButtons = document.querySelectorAll('.category-card');
+
+        const complaintInput = document.querySelector('#complaint-input');
+        const charCounter = document.querySelector('#char-counter');
+
+        const levelButtons = document.querySelectorAll('.level-button');
+
+        const submitBtn = document.querySelector('#submit-complaint-btn');
+        const submitBtnText = document.querySelector('#submit-btn-text');
+        const submitBtnIcon = document.querySelector('#submit-btn-icon');
+
+        const statusBadge = document.querySelector('#complaint-status-badge');
+        const statusText = document.querySelector('#complaint-status-text');
+
+        const verdictOverlay = document.querySelector('#verdict-overlay');
+        const verdictModalStamp = document.querySelector('#verdict-modal-stamp');
+        const verdictDetailCategory = document.querySelector('#verdict-detail-category');
+        const verdictDetailLevel = document.querySelector('#verdict-detail-level');
+        const verdictDetailStatus = document.querySelector('#verdict-detail-status');
+        const verdictDecreeText = document.querySelector('#verdict-decree-text');
+        const verdictDismissBtn = document.querySelector('#verdict-dismiss-btn');
+
+        /* === 2. GESTIONE SELEZIONE DELLA CATEGORIA === */
+        // Funzione che gestisce il click su una categoria
+        function handleCategoryClick(event) {
+            // Troviamo il pulsante cliccato anche se l'utente clicca su un'icona interna
+            const clickedBtn = event.currentTarget;
+
+            // Rimuoviamo la classe 'is-selected' e azzeriamo aria-pressed da tutti i pulsanti
+            categoryButtons.forEach(function (btn) {
+                btn.classList.remove('is-selected');
+                btn.setAttribute('aria-pressed', 'false');
+            });
+
+            // Aggiungiamo la classe 'is-selected' solo al pulsante appena cliccato
+            clickedBtn.classList.add('is-selected');
+            clickedBtn.setAttribute('aria-pressed', 'true');
+
+            // Salviamo la categoria scelta
+            selectedCategory = clickedBtn.getAttribute('data-category');
+        }
+
+        // Aggiungiamo l'ascoltatore di eventi (click) a ciascun pulsante categoria
+        categoryButtons.forEach(function (btn) {
+            btn.addEventListener('click', handleCategoryClick);
+        });
+
+        /* === 3. GESTIONE CONTATORE CARATTERI TEXTAREA === */
+        // Funzione che aggiorna in tempo reale il numero di caratteri digitati
+        function handleComplaintTyping() {
+            const currentLength = complaintInput.value.length;
+            charCounter.textContent = currentLength + '/280';
+
+            // Se l'utente supera i 250 caratteri, coloriamo il contatore di rosso per avviso
+            if (currentLength >= 250) {
+                charCounter.classList.add('is-limit');
+            } else {
+                charCounter.classList.remove('is-limit');
+            }
+        }
+
+        // Ascoltiamo l'evento 'input' per intercettare ogni carattere digitato o cancellato
+        complaintInput.addEventListener('input', handleComplaintTyping);
+
+        /* === 4. GESTIONE LIVELLO DI INGIUSTIZIA COSMICA === */
+        // Funzione che gestisce il cambio di livello di calamità
+        function handleLevelClick(event) {
+            const clickedLevelBtn = event.currentTarget;
+
+            // Deselezioniamo tutti i livelli
+            levelButtons.forEach(function (btn) {
+                btn.classList.remove('is-selected');
+            });
+
+            // Selezioniamo il livello cliccato
+            clickedLevelBtn.classList.add('is-selected');
+
+            // Salviamo il livello attuale
+            selectedLevel = clickedLevelBtn.getAttribute('data-level');
+        }
+
+        // Assegniamo il click a tutti i pulsanti livello
+        levelButtons.forEach(function (btn) {
+            btn.addEventListener('click', handleLevelClick);
+        });
+
+        /* === 5. GENERATORE DI SENTENZA BASATO SU BUON SENSO E CALAMITÀ === */
+        // Funzione che crea la sentenza finale (Approvata o Negata) con ironia cosmica
+        function generateCosmicVerdict(text, category, level) {
+            const trimmedText = text.trim();
+            const length = trimmedText.length;
+            const lower = trimmedText.toLowerCase();
+
+            // Mappa dei nomi leggibili delle categorie
+            const categoryNames = {
+                'amore': 'Amore e relazioni',
+                'lavoro': 'Lavoro e studio',
+                'sfortuna': 'Sfortuna cosmica',
+                'quotidiana': 'Vita quotidiana'
+            };
+
+            // Livello Bassa: respinta per manifesta futilità cosmica
+            if (level === 'bassa') {
+                return {
+                    approved: false,
+                    categoryName: categoryNames[category],
+                    levelName: 'LV.01 - BASSA',
+                    decree: "Il Tribunale dell'Universo ha valutato l'anomalia: trattasi di contrattempo microscopico del tutto trascurabile rispetto all'entropia cosmica. Reclamo respinto per manifesta futilità."
+                };
+            }
+
+            // Livello Apocalittico: se il testo è troppo breve, respinto per mancanza di prove
+            if (level === 'apocalittica' && length < 10) {
+                return {
+                    approved: false,
+                    categoryName: categoryNames[category],
+                    levelName: 'CRIT - APOCALITTICA',
+                    decree: "Non è possibile dichiarare una catastrofe apocalittica senza fornire un dettagliato resoconto fattuale. Reclamo respinto per insufficienza di prove stellari."
+                };
+            }
+
+            // Se vengono citate parole legate a frustrazioni quotidiane universali
+            if (lower.includes('caffè') || lower.includes('pioggia') || lower.includes('lunedì') || lower.includes('sveglia') || lower.includes('wifi')) {
+                return {
+                    approved: true,
+                    categoryName: categoryNames[category],
+                    levelName: level.toUpperCase(),
+                    decree: "Rilevata flagrante violazione delle leggi della serenità universale. Deliberato indennizzo karmico immediato: ti spettano due coincidenze fortunate entro il prossimo ciclo lunare."
+                };
+            }
+
+            // Livelli Alta o Apocalittica ben descritti
+            if (level === 'alta' || level === 'apocalittica') {
+                return {
+                    approved: true,
+                    categoryName: categoryNames[category],
+                    levelName: level.toUpperCase(),
+                    decree: "Gravissima distorsione quantistica confermata nel tuo quadrante esistenziale. Il Gran Consiglio Intergalattico approva il reclamo e invia scuse formali con sigillo cosmico."
+                };
+            }
+
+            // Livello Medio: approvato se ben argomentato, altrimenti respinto
+            if (length >= 25) {
+                return {
+                    approved: true,
+                    categoryName: categoryNames[category],
+                    levelName: 'LV.02 - MEDIA',
+                    decree: "La dinamica dei fatti espone un difetto di fabbricazione nel tessuto spaziotempo locale. Reclamo accolto con riserva di risarcimento tramite karma compensativo."
+                };
+            } else {
+                return {
+                    approved: false,
+                    categoryName: categoryNames[category],
+                    levelName: 'LV.02 - MEDIA',
+                    decree: "L'Universo ha consultato gli archivi celesti: l'inconveniente rientra nella normale quota di tribolazione assegnata per la data odierna. Reclamo negato."
+                };
+            }
+        }
+
+        /* === 6. TRASMISSIONE DEL RECLAMO E AGGIORNAMENTO STATI === */
+        // Funzione che gestisce il click su "INVIA RECLAMO"
+        function handleSubmitComplaint() {
+            if (isTransmitting) {
+                return;
+            }
+
+            const text = complaintInput.value;
+
+            // Verifica che il reclamo contenga testo
+            if (text.trim() === '') {
+                alert("Attenzione: È obbligatorio esporre il reclamo nel corpo dell'atto protocollare prima dell'invio.");
+                complaintInput.focus();
+                return;
+            }
+
+            isTransmitting = true;
+            submitBtn.disabled = true;
+
+            // 1. Modifichiamo lo stato in [STATO: VERIFICA]
+            statusBadge.className = 'status-badge status-verifying';
+            statusText.textContent = '[STATO: VERIFICA]';
+
+            // Mostriamo lo stato di caricamento sul pulsante
+            submitBtnIcon.textContent = 'hourglass_empty';
+            submitBtnIcon.classList.add('icon-spin');
+            submitBtnText.textContent = 'VERIFICA PROTOCOLLO...';
+
+            // 2. Dopo 2.5 secondi (elaborazione burocratica) emettiamo la sentenza
+            setTimeout(function () {
+                const verdict = generateCosmicVerdict(text, selectedCategory, selectedLevel);
+
+                // Aggiorniamo il badge in alto in base all'esito
+                if (verdict.approved) {
+                    statusBadge.className = 'status-badge status-approved';
+                    statusText.textContent = '[STATO: APPROVATA]';
+                } else {
+                    statusBadge.className = 'status-badge status-denied';
+                    statusText.textContent = '[STATO: NEGATA]';
+                }
+
+                // Popoliamo i dettagli della finestra modale di verdetto
+                verdictDetailCategory.textContent = verdict.categoryName;
+                verdictDetailLevel.textContent = verdict.levelName;
+                verdictDetailStatus.textContent = verdict.approved ? 'APPROVATA' : 'NEGATA';
+                verdictDecreeText.textContent = verdict.decree;
+
+                // Personalizziamo il timbro e lo stile del popup
+                if (verdict.approved) {
+                    verdictModalStamp.textContent = 'APPROVATA';
+                    verdictModalStamp.className = 'verdict-modal-stamp stamp-approved';
+                } else {
+                    verdictModalStamp.textContent = 'NEGATA';
+                    verdictModalStamp.className = 'verdict-modal-stamp stamp-denied';
+                }
+
+                // Mostriamo la finestra della sentenza
+                verdictOverlay.classList.add('is-visible');
+
+                // Ripristiniamo il pulsante principale
+                submitBtnIcon.classList.remove('icon-spin');
+                submitBtnIcon.textContent = 'send';
+                submitBtnText.textContent = 'INVIA RECLAMO';
+                submitBtn.disabled = false;
+                isTransmitting = false;
+
+            }, 2500);
+        }
+
+        // Assegniamo l'evento click al pulsante d'invio
+        submitBtn.addEventListener('click', handleSubmitComplaint);
+
+        /* === 7. RESET E CHIUSURA DELLA SENTENZA === */
+        // Funzione che chiude il verdetto e resetta il modulo per un nuovo reclamo
+        function handleDismissVerdict() {
+            // Chiudiamo la finestra modale
+            verdictOverlay.classList.remove('is-visible');
+
+            // Riportiamo lo stato su [STATO: IN ATTESA]
+            statusBadge.className = 'status-badge';
+            statusText.textContent = '[STATO: IN ATTESA]';
+
+            // Svuotiamo il campo di testo e ripristiniamo il contatore
+            complaintInput.value = '';
+            charCounter.textContent = '0/280';
+            charCounter.classList.remove('is-limit');
+        }
+
+        // Assegniamo il click al pulsante di archiviazione
+        verdictDismissBtn.addEventListener('click', handleDismissVerdict);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html><html lang="it"><head><style>body, body *:not(.material-symbols-outlined) { font-family: 'JetBrains Mono', 'Space Grotesk', monospace !important; }</style></head><body class="text-white antialiased pt-safe pb-safe flex flex-col min-h-screen selection:bg-purple-box/60 selection:text-cyan-accent font-mono" style="background: radial-gradient(circle at 82% 12%, rgba(100, 87, 166, 0.42) 0%, rgba(92, 39, 81, 0.28) 35%, transparent 65%), radial-gradient(circle at 18% 45%, rgba(75, 192, 217, 0.18) 0%, rgba(118, 229, 252, 0.08) 30%, transparent 60%), radial-gradient(circle at 25% 82%, rgba(100, 87, 166, 0.32) 0%, rgba(92, 39, 81, 0.2) 40%, transparent 65%), radial-gradient(circle at 75% 75%, rgba(118, 229, 252, 0.12) 0%, transparent 50%), linear-gradient(rgb(36, 8, 34) 0%, rgb(28, 5, 26) 35%, rgb(19, 3, 21) 70%, rgb(10, 1, 13) 100%); -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility;"><svg class="inline-defs-container" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"></svg><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_blank" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "plum-bg": "#5C2751",
+          "plum-dark": "#3d1936",
+          "plum-deep": "#240822",
+          "purple-box": "#6457A6",
+          "periwinkle": "#9DACFF",
+          "cyan-accent": "#76E5FC",
+          "cyan-btn": "#4BC0D9",
+          "alert-crit": "#FF6B8B"
+        },
+        fontFamily: {
+          sans: ["Inter", "sans-serif"],
+          mono: ["JetBrains Mono", "monospace"]
+        }
+      }
+    }
+  };
+</script><style>
+    @layer base {
+      html, body {
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        background-color: #5C2751;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 12px);
+      }
+      .pt-safe {
+        padding-top: env(safe-area-inset-top, 12px);
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    body {
+      min-height: max(844px, 100dvh);
+    }
+  </style>
+<main class="flex-1 flex flex-col relative w-full max-w-[390px] mx-auto px-4" style="height: 884px; max-height: 884px; width: 390px; overflow: hidden;"><div class="absolute inset-0 pointer-events-none overflow-hidden select-none z-0"><svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 884" preserveAspectRatio="none"><defs><radialGradient id="nebula-top" cx="80%" cy="14%" r="45%"><stop offset="0%" stop-color="#6457A6" stop-opacity="0.48"></stop><stop offset="40%" stop-color="#5C2751" stop-opacity="0.28"></stop><stop offset="75%" stop-color="#240822" stop-opacity="0.12"></stop><stop offset="100%" stop-color="#000000" stop-opacity="0"></stop></radialGradient><radialGradient id="nebula-cyan-mid" cx="12%" cy="42%" r="38%"><stop offset="0%" stop-color="#76E5FC" stop-opacity="0.22"></stop><stop offset="45%" stop-color="#4BC0D9" stop-opacity="0.10"></stop><stop offset="80%" stop-color="#240822" stop-opacity="0"></stop></radialGradient><radialGradient id="nebula-bottom" cx="22%" cy="80%" r="42%"><stop offset="0%" stop-color="#76E5FC" stop-opacity="0.20"></stop><stop offset="35%" stop-color="#6457A6" stop-opacity="0.18"></stop><stop offset="70%" stop-color="#240822" stop-opacity="0"></stop></radialGradient><radialGradient id="nebula-deep-right" cx="85%" cy="70%" r="35%"><stop offset="0%" stop-color="#6457A6" stop-opacity="0.25"></stop><stop offset="60%" stop-color="#5C2751" stop-opacity="0.10"></stop><stop offset="100%" stop-color="#000000" stop-opacity="0"></stop></radialGradient><filter id="glow-star-intense" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="1.2" result="blur1"></feGaussianBlur><feGaussianBlur stdDeviation="2.4" result="blur2"></feGaussianBlur><feMerge><feMergeNode in="blur2"></feMergeNode><feMergeNode in="blur1"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter><filter id="glow-star-soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="0.7" result="softBlur"></feGaussianBlur><feMerge><feMergeNode in="softBlur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter></defs><rect width="100%" height="100%" fill="url(#nebula-top)"></rect><rect width="100%" height="100%" fill="url(#nebula-cyan-mid)"></rect><rect width="100%" height="100%" fill="url(#nebula-bottom)"></rect><rect width="100%" height="100%" fill="url(#nebula-deep-right)"></rect><g stroke="#76E5FC" stroke-width="0.55" stroke-dasharray="2 3" opacity="0.35"><line x1="28" y1="75" x2="92" y2="115"></line><line x1="92" y1="115" x2="145" y2="38"></line><line x1="145" y1="38" x2="215" y2="58"></line><line x1="215" y1="58" x2="320" y2="75"></line><line x1="320" y1="75" x2="362" y2="45"></line></g><g stroke="#9DACFF" stroke-width="0.5" stroke-dasharray="1.5 2.5" opacity="0.3"><line x1="28" y1="195" x2="75" y2="232"></line><line x1="75" y1="232" x2="42" y2="268"></line><line x1="42" y1="268" x2="88" y2="330"></line><line x1="350" y1="180" x2="376" y2="240"></line><line x1="376" y1="240" x2="320" y2="290"></line><line x1="320" y1="290" x2="364" y2="388"></line></g><g stroke="#76E5FC" stroke-width="0.5" stroke-dasharray="2 3" opacity="0.32"><line x1="25" y1="468" x2="60" y2="515"></line><line x1="60" y1="515" x2="30" y2="545"></line><line x1="30" y1="545" x2="82" y2="620"></line><line x1="82" y1="620" x2="140" y2="660"></line><line x1="368" y1="495" x2="352" y2="605"></line><line x1="352" y1="605" x2="335" y2="675"></line><line x1="335" y1="675" x2="290" y2="810"></line></g><g stroke="#9DACFF" stroke-width="0.4" opacity="0.18"><circle cx="195" cy="420" r="160" stroke-dasharray="3 5" fill="none"></circle><circle cx="195" cy="420" r="280" stroke-dasharray="4 8" fill="none"></circle><line x1="195" y1="0" x2="195" y2="844" stroke-dasharray="2 6"></line></g><g fill="#ffffff" opacity="0.55"><circle cx="18" cy="130" r="0.5"></circle><circle cx="52" cy="160" r="0.6"></circle><circle cx="110" cy="80" r="0.5"></circle><circle cx="135" cy="145" r="0.5"></circle><circle cx="168" cy="175" r="0.6"></circle><circle cx="225" cy="120" r="0.5"></circle><circle cx="278" cy="95" r="0.6"></circle><circle cx="305" cy="150" r="0.5"></circle><circle cx="372" cy="110" r="0.6"></circle><circle cx="15" cy="290" r="0.5"></circle><circle cx="62" cy="350" r="0.6"></circle><circle cx="115" cy="270" r="0.5"></circle><circle cx="280" cy="260" r="0.6"></circle><circle cx="335" cy="225" r="0.5"></circle><circle cx="382" cy="330" r="0.6"></circle><circle cx="20" cy="610" r="0.5"></circle><circle cx="58" cy="670" r="0.6"></circle><circle cx="105" cy="580" r="0.5"></circle><circle cx="170" cy="610" r="0.6"></circle><circle cx="215" cy="590" r="0.5"></circle><circle cx="255" cy="650" r="0.6"></circle><circle cx="310" cy="575" r="0.5"></circle><circle cx="375" cy="640" r="0.6"></circle><circle cx="38" cy="720" r="0.5"></circle><circle cx="95" cy="745" r="0.6"></circle><circle cx="120" cy="810" r="0.5"></circle><circle cx="210" cy="770" r="0.6"></circle><circle cx="260" cy="740" r="0.5"></circle><circle cx="340" cy="765" r="0.6"></circle><circle cx="378" cy="785" r="0.5"></circle></g><g fill="#76E5FC" opacity="0.65"><circle cx="38" cy="95" r="0.7"></circle><circle cx="125" cy="60" r="0.8"></circle><circle cx="175" cy="135" r="0.7"></circle><circle cx="260" cy="45" r="0.8"></circle><circle cx="345" cy="90" r="0.7"></circle><circle cx="55" cy="215" r="0.8"></circle><circle cx="330" cy="310" r="0.7"></circle><circle cx="48" cy="490" r="0.8"></circle><circle cx="160" cy="540" r="0.7"></circle><circle cx="230" cy="690" r="0.8"></circle><circle cx="315" cy="725" r="0.7"></circle><circle cx="365" cy="710" r="0.8"></circle></g><g fill="#9DACFF" opacity="0.6"><circle cx="85" cy="165" r="0.7"></circle><circle cx="198" cy="65" r="0.8"></circle><circle cx="292" cy="130" r="0.7"></circle><circle cx="22" cy="375" r="0.8"></circle><circle cx="358" cy="275" r="0.7"></circle><circle cx="112" cy="640" r="0.8"></circle><circle cx="275" cy="600" r="0.7"></circle><circle cx="70" cy="790" r="0.8"></circle><circle cx="245" cy="820" r="0.7"></circle><circle cx="325" cy="830" r="0.8"></circle></g><circle cx="28" cy="75" r="1.3" fill="#76E5FC" opacity="0.9" filter="url(#glow-star-soft)"></circle><circle cx="92" cy="115" r="1.5" fill="#ffffff" opacity="0.95" filter="url(#glow-star-intense)"></circle><circle cx="145" cy="38" r="1.2" fill="#9DACFF" opacity="0.85"></circle><circle cx="215" cy="58" r="1.4" fill="#76E5FC" opacity="0.9" filter="url(#glow-star-soft)"></circle><circle cx="320" cy="75" r="1.8" fill="#ffffff" opacity="0.95" filter="url(#glow-star-intense)"></circle><circle cx="362" cy="45" r="1.2" fill="#76E5FC" opacity="0.85"></circle><circle cx="28" cy="195" r="1.3" fill="#ffffff" opacity="0.9"></circle><circle cx="75" cy="232" r="1.1" fill="#9DACFF" opacity="0.85"></circle><circle cx="42" cy="268" r="1.4" fill="#cabeff" opacity="0.9"></circle><circle cx="88" cy="330" r="1.2" fill="#76E5FC" opacity="0.85"></circle><circle cx="350" cy="180" r="1.3" fill="#76E5FC" opacity="0.9" filter="url(#glow-star-soft)"></circle><circle cx="376" cy="240" r="1.2" fill="#ffffff" opacity="0.85"></circle><circle cx="320" cy="290" r="1.3" fill="#9DACFF" opacity="0.85"></circle><circle cx="364" cy="388" r="1.1" fill="#76E5FC" opacity="0.8"></circle><circle cx="25" cy="468" r="1.8" fill="#76E5FC" opacity="0.95" filter="url(#glow-star-intense)"></circle><circle cx="60" cy="515" r="1.1" fill="#ffffff" opacity="0.8"></circle><circle cx="30" cy="545" r="1.4" fill="#9DACFF" opacity="0.9"></circle><circle cx="82" cy="620" r="1.5" fill="#ffffff" opacity="0.95" filter="url(#glow-star-soft)"></circle><circle cx="140" cy="660" r="1.1" fill="#cabeff" opacity="0.85"></circle><circle cx="368" cy="495" r="1.4" fill="#9DACFF" opacity="0.9"></circle><circle cx="352" cy="605" r="1.5" fill="#76E5FC" opacity="0.9" filter="url(#glow-star-soft)"></circle><circle cx="335" cy="675" r="1.8" fill="#76E5FC" opacity="0.95" filter="url(#glow-star-intense)"></circle><circle cx="290" cy="810" r="1.4" fill="#ffffff" opacity="0.9" filter="url(#glow-star-soft)"></circle><circle cx="45" cy="760" r="1.3" fill="#cabeff" opacity="0.85"></circle><circle cx="165" cy="790" r="1.1" fill="#ffffff" opacity="0.8"></circle><circle cx="355" cy="825" r="1.2" fill="#76E5FC" opacity="0.85"></circle><g transform="translate(338, 122)" filter="url(#glow-star-intense)"><path d="M0,-6.5 L1.3,-1.3 L6.5,0 L1.3,1.3 L0,6.5 L-1.3,1.3 L-6.5,0 L-1.3,-1.3 Z" fill="#76E5FC" opacity="0.95"></path><circle cx="0" cy="0" r="1.4" fill="#ffffff"></circle></g><g transform="translate(54, 88)" filter="url(#glow-star-soft)"><path d="M0,-4.5 L0.9,-0.9 L4.5,0 L0.9,0.9 L0,4.5 L-0.9,0.9 L-4.5,0 L-0.9,-0.9 Z" fill="#ffffff" opacity="0.9"></path><circle cx="0" cy="0" r="0.9" fill="#76E5FC"></circle></g><g transform="translate(30, 545)" filter="url(#glow-star-intense)"><path d="M0,-5 L1,-1 L5,0 L1,1 L0,5 L-1,1 L-5,0 L-1,-1 Z" fill="#9DACFF" opacity="0.95"></path><circle cx="0" cy="0" r="1.1" fill="#ffffff"></circle></g><g transform="translate(352, 605)" filter="url(#glow-star-intense)"><path d="M0,-5.5 L1.1,-1.1 L5.5,0 L1.1,1.1 L0,5.5 L-1.1,1.1 L-5.5,0 L-1.1,-1.1 Z" fill="#76E5FC" opacity="0.9"></path><circle cx="0" cy="0" r="1.2" fill="#ffffff"></circle></g><g transform="translate(190, 720)" filter="url(#glow-star-soft)"><path d="M0,-4 L0.8,-0.8 L4,0 L0.8,0.8 L0,4 L-0.8,0.8 L-4,0 L-0.8,-0.8 Z" fill="#cabeff" opacity="0.85"></path><circle cx="0" cy="0" r="0.8" fill="#ffffff"></circle></g><g transform="translate(88, 330)" filter="url(#glow-star-soft)"><path d="M0,-3.8 L0.8,-0.8 L3.8,0 L0.8,0.8 L0,3.8 L-0.8,0.8 L-3.8,0 L-0.8,-0.8 Z" fill="#76E5FC" opacity="0.85"></path><circle cx="0" cy="0" r="0.8" fill="#ffffff"></circle></g></svg></div><div class="flex flex-col w-full pb-3 select-none relative z-10" style="height: 884px; justify-content: space-between; padding-top: 8px; padding-bottom: 14px;">
+<!-- Header -->
+<header class="w-full flex items-center justify-between py-2.5 border-b border-periwinkle/20 mb-2.5">
+<div class="flex items-center space-x-2">
+<div class="w-7 h-7 rounded-md border border-cyan-accent/70 bg-purple-box/30 flex items-center justify-center shadow-[0_0_10px_rgba(118,229,252,0.25)] ring-1 ring-white/10"><img src="https://lh3.googleusercontent.com/aida/AEtjO1UtZSnZzAU8Bx8TGjeG4jc-WdmJXV-ENOrQA71d0pdrJG3qYScWVgvbFH3laUVVET0s_P08isggMylr8Q2PdBR_SqSsxFd2YvqvxP973Eif7wYiLpsOtslvdn5JG1-ogtiFgLEGhZdXUNkWIeif05WpMti2MXE1kJ3NQ3HZFc0WQ2qSbfhAeaXpVPnC7oXpP1i62L8YMe5NmFwj2oLaH_upC9Ec2ZE0XZcgPqwvPflPUrtWIxR9T-fwu4NJ" alt="Cosmic Saturn Logo" class="w-full h-full rounded-md object-contain"></div>
+<div class="flex items-center space-x-1.5">
+<span class="font-sans font-bold text-[13px] uppercase tracking-wider text-white whitespace-nowrap">COSMIC COMPLAINTS</span>
+<span class="font-mono text-[9px] tracking-tight bg-purple-box/40 text-cyan-accent px-1.5 py-0.5 rounded border border-cyan-accent/30 shadow-[0_0_6px_rgba(118,229,252,0.15)]">v2.4.9</span>
+</div>
+</div>
+<div class="flex items-center space-x-1 border border-periwinkle/30 px-1.5 py-0.5 rounded bg-purple-box/20 ring-1 ring-white/5"><span class="material-symbols-outlined text-[11px] text-periwinkle/80 leading-none">account_circle</span><span class="font-mono text-[10px] font-semibold text-white tracking-tighter leading-none">[NICOLE]</span><span class="w-1 h-1 rounded-full bg-cyan-accent inline-block shadow-[0_0_4px_#76E5FC] animate-pulse"></span></div>
+</header>
+<!-- Administrative Title & Stamp Box -->
+<div class="relative w-full mb-2.5 rounded-lg bg-purple-box/30 border border-periwinkle/30 p-3.5 overflow-hidden shadow-lg ring-1 ring-white/10"><div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#9DACFF 1px, transparent 1px); background-size: 10px 10px;"></div><div class="absolute -right-2 -top-2 pointer-events-none rotate-[-6deg] flex items-center justify-center w-32 h-32 z-10 select-none"><svg class="w-full h-full drop-shadow-[0_0_10px_rgba(118,229,252,0.4)]" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="70" cy="70" r="66" stroke="#76E5FC" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.9"></circle><circle cx="70" cy="70" r="62" stroke="#9DACFF" stroke-width="0.7" opacity="0.65"></circle><circle cx="70" cy="70" r="45" stroke="#76E5FC" stroke-width="1" stroke-dasharray="2 2" opacity="0.8"></circle><circle cx="70" cy="70" r="41" stroke="#9DACFF" stroke-width="0.6" opacity="0.5"></circle><defs><path id="stamp-text-arc-top-v2" d="M 18,70 A 52,52 0 0,1 122,70" fill="none"></path><path id="stamp-text-arc-bottom-v2" d="M 122,70 A 52,52 0 0,1 18,70" fill="none"></path></defs><text fill="#76E5FC" font-family="JetBrains Mono, monospace" font-size="8.2" font-weight="700" letter-spacing="0.22em"><textPath href="#stamp-text-arc-top-v2" startOffset="50%" text-anchor="middle">REGISTRO UNICO</textPath></text><text fill="#9DACFF" font-family="JetBrains Mono, monospace" font-size="7.5" font-weight="600" letter-spacing="0.18em"><textPath href="#stamp-text-arc-bottom-v2" startOffset="50%" text-anchor="middle">UFFICIO UNIVERSO</textPath></text><circle cx="24" cy="70" r="1.8" fill="#76E5FC"></circle><circle cx="116" cy="70" r="1.8" fill="#76E5FC"></circle><g transform="translate(56, 56)"><circle cx="14" cy="14" r="13" stroke="#76E5FC" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.6"></circle><polygon points="14,2 17.5,10.5 26,14 17.5,17.5 14,26 10.5,17.5 2,14 10.5,10.5" fill="rgba(118,229,252,0.12)" stroke="#76E5FC" stroke-width="1" opacity="0.85"></polygon><circle cx="14" cy="14" r="2.2" fill="#76E5FC"></circle><path d="M9.5 14L12.5 17L18.5 11" stroke="#76E5FC" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></g></svg></div><div class="relative z-10 flex flex-wrap items-center gap-1.5 font-mono text-[10px] text-periwinkle mb-2"><span class="bg-plum-dark/80 px-2 py-0.5 rounded border border-periwinkle/30 text-periwinkle/90 backdrop-blur-sm">[MODULO CC-001/A]</span><span class="bg-plum-dark/80 px-2 py-0.5 rounded border border-periwinkle/30 text-periwinkle/90 backdrop-blur-sm">[PROTOCOLLO: #994-Ω]</span><span class="bg-cyan-accent/15 px-2 py-0.5 rounded border border-cyan-accent/50 font-semibold text-cyan-accent shadow-[0_0_8px_rgba(118,229,252,0.15)] flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-cyan-accent inline-block shadow-[0_0_4px_#76E5FC] animate-pulse"></span>[STATO: IN ATTESA]</span></div><h1 class="relative z-10 font-sans font-bold text-[19px] leading-snug tracking-tight text-white mt-1 mb-1">Hai un reclamo da presentare?</h1><p class="relative z-10 font-sans leading-relaxed max-w-[245px] text-periwinkle text-[10px]" style="font-size: 10px;">L’Universo è disponibile ad ascoltarti. Non promette soluzioni immediate.</p></div>
+<!-- Form Section 1: Category Selection (2x2 Grid) -->
+<div class="w-full mb-2.5">
+<div class="flex items-center justify-between border-b border-periwinkle/25 pb-1 mb-1.5">
+<span class="font-mono text-[11px] uppercase tracking-wider text-cyan-accent font-semibold flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-sm bg-cyan-accent inline-block"></span>
+  CATEGORIA RECLAMO</span>
+<span class="font-mono text-[11px] text-periwinkle font-medium">01/01</span>
+</div>
+<div class="grid grid-cols-2 gap-2" id="category-selector">
+<!-- Option 1: Amore e relazioni -->
+<button class="cat-btn flex items-center p-2 text-left rounded-md border active:scale-[0.98] transition-all relative group hover:border-periwinkle/60 selected border-cyan-accent bg-purple-box/70 shadow-[0_0_12px_rgba(118,229,252,0.25)]" data-cat="amore" onclick="selectCategory(this)" type="button">
+<div class="cat-radio w-3.5 h-3.5 rounded-sm border mr-2 flex items-center justify-center shrink-0 transition-colors border-cyan-accent bg-plum-dark">
+<div class="radio-dot w-2 h-2 rounded-[1px] bg-cyan-accent shadow-[0_0_4px_#76E5FC]"></div>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center space-x-1 mb-0.5">
+<span class="material-symbols-outlined text-[12px] text-cyan-accent">heart_broken</span>
+<span class="font-mono text-[10px] text-cyan-accent font-bold">SEC-A</span>
+</div>
+<span class="font-sans text-[12px] truncate block leading-tight font-semibold text-cyan-accent">Amore e relazioni</span>
+</div>
+</button>
+<!-- Option 2: Lavoro e studio (Selected state) -->
+<button class="cat-btn flex items-center p-2 text-left rounded-md border active:scale-[0.98] transition-all relative border-periwinkle/30 bg-purple-box/25" data-cat="lavoro" onclick="selectCategory(this)" type="button">
+<div class="cat-radio w-3.5 h-3.5 rounded-sm border mr-2 flex items-center justify-center shrink-0 border-periwinkle/60 bg-plum-dark/60">
+<div class="radio-dot w-2 h-2 rounded-[1px] bg-cyan-accent shadow-[0_0_5px_#76E5FC] hidden"></div>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center space-x-1 mb-0.5">
+<span class="material-symbols-outlined text-periwinkle text-[13px]">work_outline</span>
+<span class="font-mono text-[10px] text-periwinkle/70">SEC-B</span>
+</div>
+<span class="font-sans text-[12px] truncate block leading-tight font-medium text-white/90">Lavoro e studio</span>
+</div>
+</button>
+<!-- Option 3: Sfortuna cosmica -->
+<button class="cat-btn flex items-center p-2 text-left rounded-md border active:scale-[0.98] transition-all relative group hover:border-periwinkle/60 border-periwinkle/30 bg-purple-box/25" data-cat="sfortuna" onclick="selectCategory(this)" type="button">
+<div class="cat-radio w-3.5 h-3.5 rounded-sm border mr-2 flex items-center justify-center shrink-0 transition-colors border-periwinkle/60 bg-plum-dark/60">
+<div class="radio-dot w-2 h-2 rounded-[1px] bg-cyan-accent shadow-[0_0_4px_#76E5FC] hidden"></div>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center space-x-1 mb-0.5">
+<span class="material-symbols-outlined text-[11px] text-cyan-accent">bolt</span>
+<span class="font-mono text-[10px] text-periwinkle/70">SEC-C</span>
+</div>
+<span class="font-sans text-[12px] truncate block leading-tight font-medium text-white/90">Sfortuna cosmica</span>
+</div>
+</button>
+<!-- Option 4: Vita quotidiana -->
+<button class="cat-btn flex items-center p-2 text-left rounded-md border active:scale-[0.98] transition-all relative group hover:border-periwinkle/60 border-periwinkle/30 bg-purple-box/25" data-cat="quotidiana" onclick="selectCategory(this)" type="button">
+<div class="cat-radio w-3.5 h-3.5 rounded-sm border mr-2 flex items-center justify-center shrink-0 transition-colors border-periwinkle/60 bg-plum-dark/60">
+<div class="radio-dot w-2 h-2 rounded-[1px] bg-cyan-accent shadow-[0_0_4px_#76E5FC] hidden"></div>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center space-x-1 mb-0.5">
+<span class="material-symbols-outlined text-[15px] text-periwinkle">schedule</span>
+<span class="font-mono text-[10px] text-periwinkle/70">SEC-D</span>
+</div>
+<span class="font-sans text-[12px] truncate block leading-tight font-medium text-white/90">Vita quotidiana</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Form Section 2: Narrative Dossier Field -->
+<div class="w-full mb-2.5">
+<div class="flex items-baseline justify-between mb-1">
+<label class="font-sans font-semibold text-[13px] text-white tracking-tight" for="complaint-text">
+  Descrivi il tuo reclamo
+</label>
+<span class="font-mono text-[10px] text-periwinkle">
+  [MAX 280 CARATTERI]
+</span>
+</div>
+<!-- Administrative Input Container -->
+<div class="rounded-lg border border-periwinkle/30 bg-purple-box/30 overflow-hidden focus-within:border-cyan-accent focus-within:shadow-[0_0_12px_rgba(118,229,252,0.25)] ring-1 ring-white/5 transition-all">
+<div class="bg-plum-dark/80 px-2.5 py-1 border-b border-periwinkle/25 flex items-center justify-between text-periwinkle">
+<span class="font-mono text-[10px] tracking-wide text-cyan-accent/90 flex items-center gap-1">:: CORPO ATTO PROTOCOLLARE</span>
+<span class="font-mono text-[9px] text-periwinkle/70 uppercase tracking-wider">UTF-8/PLAIN</span>
+</div>
+<div class="p-2.5 relative">
+<textarea class="w-full font-sans focus:outline-none resize-none leading-relaxed min-h-[58px] text-[11px] text-cyan-accent p-2 rounded border border-periwinkle/25 focus:border-cyan-accent placeholder:text-cyan-accent/70 transition-colors" id="complaint-text" maxlength="280" oninput="updateCount(this)" placeholder="Esporre l’ingiustizia subita, l’assurdità del destino o l’anomalia temporale riscontrata." rows="2" style="background-color: rgba(44, 0, 38, 0.45); color: rgb(118, 229, 252);"></textarea>
+<div class="flex justify-between items-center pt-1.5 border-t border-dashed border-periwinkle/20 mt-1 font-mono text-[10px]">
+<span class="italic text-periwinkle/70">Precisione metrica richiesta</span>
+<span class="font-semibold text-cyan-accent" id="char-counter">89/280</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Form Section 3: Level of Injustice Segment Switcher -->
+<div class="w-full mb-3"><style class="">
+  .lvl-btn.crit-selected {
+    background-color: #FF4B72 !important;
+    border-color: #FF4B72 !important;
+    box-shadow: 0 0 14px rgba(255, 75, 114, 0.65), 0 0 4px #FF4B72 !important;
+    color: #1a0218 !important;
+  }
+  .lvl-btn.crit-selected span {
+    color: #1a0218 !important;
+    font-weight: 800 !important;
+  }
+</style>
+<div class="flex items-center justify-between mb-1">
+<span class="font-mono text-[11px] uppercase tracking-wider text-cyan-accent font-semibold flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-sm bg-cyan-accent inline-block"></span>
+  LIVELLO DI INGIUSTIZIA COSMICA
+</span>
+<span class="font-mono text-[10px] text-periwinkle font-medium tracking-tight">GRADO CALAMITÀ</span>
+</div>
+<!-- 4-step Administrative Segment Switch -->
+<div class="grid grid-cols-4 gap-1 rounded-lg border border-periwinkle/30 p-1 bg-purple-box/30 ring-1 ring-white/5" id="level-selector"><!-- Step 1: Bassa -->
+<button class="lvl-btn py-1.5 px-0.5 text-center rounded border font-mono uppercase transition-all hover:border-periwinkle/40 flex flex-col items-center justify-center border-transparent bg-purple-box/20" onclick="selectLevel(this, 'bassa')" type="button"><span class="block text-[8px] leading-none mb-0.5 tracking-tight font-medium text-periwinkle/70">LV.01</span>
+<span class="text-[10px] tracking-tight whitespace-nowrap text-periwinkle font-medium">BASSA</span></button>
+<!-- Step 2: Media -->
+<button class="lvl-btn py-1.5 px-0.5 text-center rounded border font-mono uppercase transition-all hover:border-periwinkle/40 flex flex-col items-center justify-center border-transparent bg-purple-box/20" onclick="selectLevel(this, 'media')" type="button"><span class="block text-[8px] leading-none mb-0.5 tracking-tight font-medium text-periwinkle/70">LV.02</span><span class="font-medium text-[10px] tracking-tight whitespace-nowrap text-periwinkle">MEDIA</span></button>
+<!-- Step 3: Alta -->
+<button class="lvl-btn py-1.5 px-0.5 text-center rounded border font-mono uppercase transition-all hover:border-periwinkle/40 flex flex-col items-center justify-center border-transparent bg-purple-box/20" onclick="selectLevel(this, 'alta')" type="button"><span class="block text-[8px] leading-none mb-0.5 tracking-tight text-periwinkle/70">LV.03</span>
+<span class="text-[10px] tracking-tight whitespace-nowrap text-periwinkle font-medium">ALTA</span></button>
+<!-- Step 4: Apocalittica -->
+<button class="lvl-btn py-1.5 px-0.5 text-center rounded border font-mono uppercase transition-all flex flex-col items-center justify-center hover:border-alert-crit selected crit-selected" data-level="apocalittica" onclick="selectLevel(this, 'apocalittica')" type="button">
+<span class="block text-[8px] leading-none mb-0.5 tracking-tight text-alert-crit font-bold">CRIT</span>
+<span class="text-[9px] tracking-tighter whitespace-nowrap text-alert-crit font-semibold">APOCALITTICA</span>
+</button></div>
+</div>
+<!-- Primary Action: Dossier Transmission CTA -->
+<div class="w-full mb-2.5">
+<button class="w-full min-h-[46px] rounded-lg hover:bg-cyan-accent text-plum-deep font-mono text-[13px] uppercase tracking-wider flex items-center justify-center space-x-2 border border-cyan-accent shadow-[0_0_20px_rgba(75,192,217,0.5)] active:scale-[0.98] transition-all cursor-pointer font-bold bg-cyan-btn relative overflow-hidden group" id="submit-dossier-btn" onclick="transmitDossier(this)" style="box-shadow: rgba(75, 192, 217, 0.4) 0px 0px 20px, rgba(255, 255, 255, 0.45) 0px 1px 0px inset;" type="button">
+<span class="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-0.5">send</span>
+<span class="tracking-wide">INVIA RECLAMO</span>
+</button>
+</div>
+<!-- System Clarification Disclaimer Note -->
+<div class="w-full rounded-lg bg-purple-box/20 border border-dashed border-periwinkle/35 p-2.5 flex items-start space-x-2 ring-1 ring-white/5">
+<span class="material-symbols-outlined text-[16px] text-cyan-accent shrink-0 mt-0.5">info</span>
+<p class="font-sans text-cyan-accent text-[11px] leading-snug" style="color: var(--color-secondary, #9DACFF);">
+  Ogni reclamo riceverà una sentenza. L’Universo si riserva il diritto di respingerlo senza preavviso.
+</p>
+</div>
+<!-- Administrative Footer Trace -->
+<div class="w-full mt-2 pt-1 border-t border-periwinkle/20 flex items-center justify-between text-periwinkle/70 font-mono text-[9px] uppercase tracking-wider">
+<span class="">HASH: 8F2A...9C01</span>
+<span class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-cyan-accent inline-block"></span>
+  TERMINALE BUROCRATICO ATTIVO
+</span>
+</div>
+</div>
+<script>
+  function updateCount(el) {
+    const counter = document.getElementById('char-counter');
+    const length = el.value.length;
+    counter.textContent = length + '/280';
+    if (length >= 260) {
+      counter.classList.add('text-alert-crit', 'font-bold');
+      counter.classList.remove('text-cyan-accent');
+    } else {
+      counter.classList.remove('text-alert-crit');
+      counter.classList.add('text-cyan-accent');
+    }
+  }
+
+  function selectCategory(el) {
+    const container = document.getElementById('category-selector');
+    const allBtns = container.querySelectorAll('.cat-btn');
+    
+    allBtns.forEach(btn => {
+      btn.classList.remove('selected', 'border-cyan-accent', 'bg-purple-box/70', 'shadow-[0_0_12px_rgba(118,229,252,0.25)]');
+      btn.classList.add('border-periwinkle/30', 'bg-purple-box/25');
+      
+      const dot = btn.querySelector('.radio-dot');
+      if (dot) dot.classList.add('hidden');
+      
+      const radioBox = btn.querySelector('.cat-radio');
+      if (radioBox) {
+        radioBox.classList.remove('border-cyan-accent', 'bg-plum-dark');
+        radioBox.classList.add('border-periwinkle/60', 'bg-plum-dark/60');
+      }
+
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (icon) {
+        icon.classList.remove('text-cyan-accent');
+        icon.classList.add('text-periwinkle');
+      }
+      
+      const code = btn.querySelector('.font-mono');
+      if (code) {
+        code.classList.remove('text-cyan-accent', 'font-bold');
+        code.classList.add('text-periwinkle/70');
+      }
+      
+      const label = btn.querySelector('.font-sans');
+      if (label) {
+        label.classList.remove('font-semibold', 'text-cyan-accent');
+        label.classList.add('font-medium', 'text-white/90');
+      }
+    });
+
+    el.classList.add('selected', 'border-cyan-accent', 'bg-purple-box/70', 'shadow-[0_0_12px_rgba(118,229,252,0.25)]');
+    el.classList.remove('border-periwinkle/30', 'bg-purple-box/25');
+    
+    const activeRadioBox = el.querySelector('.cat-radio');
+    if (activeRadioBox) {
+      activeRadioBox.classList.add('border-cyan-accent', 'bg-plum-dark');
+      activeRadioBox.classList.remove('border-periwinkle/60', 'bg-plum-dark/60');
+    }
+
+    const activeDot = el.querySelector('.radio-dot');
+    if (activeDot) activeDot.classList.remove('hidden');
+
+    const activeIcon = el.querySelector('.material-symbols-outlined');
+    if (activeIcon) {
+      activeIcon.classList.add('text-cyan-accent');
+      activeIcon.classList.remove('text-periwinkle');
+    }
+
+    const activeCode = el.querySelector('.font-mono');
+    if (activeCode) {
+      activeCode.classList.add('text-cyan-accent', 'font-bold');
+      activeCode.classList.remove('text-periwinkle/70');
+    }
+
+    const activeLabel = el.querySelector('.font-sans');
+    if (activeLabel) {
+      activeLabel.classList.add('font-semibold', 'text-cyan-accent');
+      activeLabel.classList.remove('font-medium', 'text-white/90');
+    }
+  }
+
+  function selectLevel(el, level) {
+    const container = document.getElementById('level-selector');
+    const buttons = container.querySelectorAll('.lvl-btn');
+    
+    buttons.forEach(btn => {
+      btn.classList.remove('selected', 'border-cyan-accent', 'bg-cyan-accent', 'text-plum-deep', 'shadow-[0_0_10px_rgba(118,229,252,0.35)]');
+      btn.classList.add('border-transparent', 'bg-purple-box/20');
+      
+      const sub = btn.querySelector('span:first-child');
+      const text = btn.querySelector('span:last-child');
+      if (sub) {
+        sub.classList.remove('text-plum-dark/80', 'font-bold');
+        if (sub.textContent === 'CRIT') {
+          sub.classList.add('text-alert-crit', 'font-bold');
+        } else {
+          sub.classList.add('text-periwinkle/70');
+        }
+      }
+      if (text) {
+        text.classList.remove('text-plum-deep', 'font-bold');
+        if (text.textContent === 'APOCALITTICA') {
+          text.classList.add('text-alert-crit', 'font-semibold');
+        } else {
+          text.classList.add('text-periwinkle', 'font-medium');
+        }
+      }
+    });
+
+    el.classList.add('selected', 'border-cyan-accent', 'bg-cyan-accent', 'text-plum-deep', 'shadow-[0_0_10px_rgba(118,229,252,0.35)]');
+    el.classList.remove('border-transparent', 'bg-purple-box/20');
+    
+    const activeSub = el.querySelector('span:first-child');
+    const activeText = el.querySelector('span:last-child');
+    if (activeSub) {
+      activeSub.classList.remove('text-periwinkle/70', 'text-alert-crit');
+      activeSub.classList.add('text-plum-dark/80', 'font-bold');
+    }
+    if (activeText) {
+      activeText.classList.remove('text-periwinkle', 'text-alert-crit', 'font-medium', 'font-semibold');
+      activeText.classList.add('text-plum-deep', 'font-bold');
+    }
+  }
+
+  function transmitDossier(btn) {
+    const originalContent = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = `
+      <span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span>
+      <span class="font-bold">TRASMISSIONE PROTOCOLLO...</span>
+    `;
+    setTimeout(() => {
+      btn.innerHTML = `
+        <span class="material-symbols-outlined text-[18px]">done_all</span>
+        <span class="font-bold">RECLAMO ACQUISITO</span>
+      `;
+      btn.classList.remove('bg-cyan-btn');
+      btn.classList.add('bg-purple-box', 'text-cyan-accent', 'border-cyan-accent');
+      setTimeout(() => {
+        btn.innerHTML = originalContent;
+        btn.classList.remove('bg-purple-box', 'text-cyan-accent');
+        btn.classList.add('bg-cyan-btn', 'text-plum-deep');
+        btn.disabled = false;
+      }, 2500);
+    }, 1200);
+  }
+</script><script class="">
+  (function() {
+    const oldSelectLevel = window.selectLevel;
+    window.selectLevel = function(el, level) {
+      const container = document.getElementById('level-selector');
+      if (!container) return;
+      const buttons = container.querySelectorAll('.lvl-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('selected', 'crit-selected', 'border-cyan-accent', 'bg-cyan-accent', 'text-plum-deep', 'shadow-[0_0_10px_rgba(118,229,252,0.35)]');
+        btn.classList.add('border-transparent', 'bg-purple-box/20');
+        const sub = btn.querySelector('span:first-child');
+        const text = btn.querySelector('span:last-child');
+        if (sub) {
+          sub.classList.remove('text-plum-dark/80', 'font-bold');
+          if (sub.textContent.trim() === 'CRIT') {
+            sub.classList.add('text-alert-crit', 'font-bold');
+          } else {
+            sub.classList.add('text-periwinkle/70');
+          }
+        }
+        if (text) {
+          text.classList.remove('text-plum-deep', 'font-bold');
+          if (text.textContent.trim() === 'APOCALITTICA') {
+            text.classList.add('text-alert-crit', 'font-semibold');
+          } else {
+            text.classList.add('text-periwinkle', 'font-medium');
+          }
+        }
+      });
+
+      if (level === 'apocalittica') {
+        el.classList.add('selected', 'crit-selected');
+        el.classList.remove('border-transparent', 'bg-purple-box/20');
+      } else {
+        el.classList.add('selected', 'border-cyan-accent', 'bg-cyan-accent', 'text-plum-deep', 'shadow-[0_0_10px_rgba(118,229,252,0.35)]');
+        el.classList.remove('border-transparent', 'bg-purple-box/20');
+        const activeSub = el.querySelector('span:first-child');
+        const activeText = el.querySelector('span:last-child');
+        if (activeSub) {
+          activeSub.classList.remove('text-periwinkle/70', 'text-alert-crit');
+          activeSub.classList.add('text-plum-dark/80', 'font-bold');
+        }
+        if (activeText) {
+          activeText.classList.remove('text-periwinkle', 'text-alert-crit', 'font-medium', 'font-semibold');
+          activeText.classList.add('text-plum-deep', 'font-bold');
+        }
+      }
+    };
+  })();
+</script></main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

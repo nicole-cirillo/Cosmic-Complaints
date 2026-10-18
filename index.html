@@ -3,19 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Cosmic Complaints - Registro Reclami Intergalattico</title>
 
-    <!-- Font Google: Inter (testi generali) e JetBrains Mono (dati e telemetria) -->
+    <!-- Font Google: JetBrains Mono (come nel riferimento Stitch, TUTTO il testo è monospace) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
 
-    <!-- Icone Google: Material Symbols Rounded -->
+    <!-- Icone Google: Material Symbols Outlined (stesse icone del riferimento) -->
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
 
     <style>
         /* ==========================================================================
@@ -27,33 +26,32 @@
             --plum-bg: #5C2751;
             --plum-dark: #3d1936;
             --plum-deep: #240822;
-            --plum-lowest: #140316;
             --purple-box: #6457A6;
             --periwinkle: #9DACFF;
             --cyan-accent: #76E5FC;
             --cyan-btn: #4BC0D9;
             --alert-crit: #FF6B8B;
+            --alert-crit-strong: #FF4B72;
             --success-glow: #5EEDB4;
 
             /* Tipografia */
-            --font-sans: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
 
             /* Raggi di curvatura */
-            --radius-sm: 4px;
-            --radius-md: 8px;
-            --radius-lg: 12px;
+            --radius-sm: 2px;
+            --radius: 4px;
+            --radius-md: 6px;
+            --radius-lg: 8px;
             --radius-full: 9999px;
 
-            /* Ombre ed effetti di luminescenza */
-            --glow-cyan: 0 0 12px rgba(118, 229, 252, 0.35);
-            --glow-cyan-btn: 0 0 20px rgba(75, 192, 217, 0.45);
-            --glow-crit: 0 0 12px rgba(255, 107, 139, 0.4);
+            /* Sottile anello luminoso bianco usato su card e pannelli */
+            --ring-10: 0 0 0 1px rgba(255, 255, 255, 0.1);
+            --ring-5: 0 0 0 1px rgba(255, 255, 255, 0.05);
         }
 
         /* ==========================================================================
        RESET E STRUTTURA DI BASE (MOBILE-FIRST)
-       Centrato con max-width 420px sugli schermi più ampi
+       Colonna centrale larga 390px come il riferimento
        ========================================================================== */
         * {
             box-sizing: border-box;
@@ -61,39 +59,58 @@
             padding: 0;
         }
 
-        body {
-            background-color: var(--plum-lowest);
-            font-family: var(--font-mono);
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 0;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
+        html {
+            background-color: var(--plum-bg);
         }
 
-        /* Contenitore mobile centrato */
-        .app-viewport {
-            width: 100%;
-            max-width: 420px;
-            min-height: 100vh;
+        body {
+            min-height: max(844px, 100dvh);
+            font-family: var(--font-mono);
+            line-height: 1.5;
+            color: #ffffff;
+            overscroll-behavior: none;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            /* Nebulose sfumate sull'intera pagina */
             background:
                 radial-gradient(circle at 82% 12%, rgba(100, 87, 166, 0.42) 0%, rgba(92, 39, 81, 0.28) 35%, transparent 65%),
                 radial-gradient(circle at 18% 45%, rgba(75, 192, 217, 0.18) 0%, rgba(118, 229, 252, 0.08) 30%, transparent 60%),
                 radial-gradient(circle at 25% 82%, rgba(100, 87, 166, 0.32) 0%, rgba(92, 39, 81, 0.2) 40%, transparent 65%),
                 radial-gradient(circle at 75% 75%, rgba(118, 229, 252, 0.12) 0%, transparent 50%),
-                linear-gradient(180deg, rgb(36, 8, 34) 0%, rgb(28, 5, 26) 35%, rgb(19, 3, 21) 70%, rgb(10, 1, 13) 100%);
-            position: relative;
-            padding: 12px 16px 20px 16px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+                linear-gradient(rgb(36, 8, 34) 0%, rgb(28, 5, 26) 35%, rgb(19, 3, 21) 70%, rgb(10, 1, 13) 100%);
         }
 
-        /* Sfondo decorativo con costellazioni e stelle vettoriali */
+        /* I pulsanti e la textarea non ereditano il font da soli: lo forziamo */
+        button,
+        textarea {
+            font: inherit;
+            color: inherit;
+            letter-spacing: inherit;
+        }
+
+        ::selection {
+            background: rgba(100, 87, 166, 0.6);
+            color: var(--cyan-accent);
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Contenitore mobile centrato */
+        .app-viewport {
+            width: 100%;
+            max-width: 390px;
+            min-height: 884px;
+            margin: 0 auto;
+            padding: 0 16px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Sfondo decorativo con nebulose, costellazioni e stelle vettoriali */
         .space-background {
             position: absolute;
             inset: 0;
@@ -103,11 +120,12 @@
         }
 
         .space-background svg {
+            display: block;
             width: 100%;
             height: 100%;
         }
 
-        /* Contenuto dell'interfaccia */
+        /* Contenuto dell'interfaccia: i blocchi sono distribuiti su tutta l'altezza */
         .app-content {
             position: relative;
             z-index: 10;
@@ -115,25 +133,31 @@
             flex-direction: column;
             flex: 1;
             justify-content: space-between;
-            gap: 12px;
+            padding: 8px 0 14px;
         }
 
-        .material-symbols-rounded {
-            font-size: 16px;
-            display: inline-flex;
-            vertical-align: middle;
+        /* Le icone nel riferimento sono tutte a 24px */
+        .material-symbols-outlined {
+            font-size: 24px;
             user-select: none;
+        }
+
+        @keyframes pulseAnimation {
+            50% {
+                opacity: 0.5;
+            }
         }
 
         /* ==========================================================================
        HEADER (INTESTAZIONE)
-       Logo con icona, nome app, versione e codice utente
+       Logo, nome app, versione e codice utente
        ========================================================================== */
         .app-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-bottom: 8px;
+            padding: 10px 0;
+            margin-bottom: 10px;
             border-bottom: 1px solid rgba(157, 172, 255, 0.2);
         }
 
@@ -148,62 +172,72 @@
             height: 28px;
             border-radius: var(--radius-md);
             border: 1px solid rgba(118, 229, 252, 0.7);
-            background: rgba(100, 87, 166, 0.35);
+            background: rgba(100, 87, 166, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 10px rgba(118, 229, 252, 0.25);
+            box-shadow: var(--ring-10), 0 0 10px rgba(118, 229, 252, 0.25);
         }
 
-        .brand-logo-icon svg {
-            width: 18px;
-            height: 18px;
-            fill: var(--cyan-accent);
+        .brand-logo-icon img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: var(--radius-md);
+            object-fit: contain;
+        }
+
+        .brand-name {
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .brand-title {
-            font-family: var(--font-sans);
             font-weight: 700;
             font-size: 13px;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
-            color: #ffffff;
             white-space: nowrap;
         }
 
         .brand-version {
-            font-family: var(--font-mono);
             font-size: 9px;
+            letter-spacing: -0.025em;
             background: rgba(100, 87, 166, 0.4);
             color: var(--cyan-accent);
-            padding: 2px 5px;
-            border-radius: var(--radius-sm);
+            padding: 2px 6px;
+            border-radius: var(--radius);
             border: 1px solid rgba(118, 229, 252, 0.3);
             box-shadow: 0 0 6px rgba(118, 229, 252, 0.15);
-            margin-left: 4px;
         }
 
         .user-docket-badge {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
             border: 1px solid rgba(157, 172, 255, 0.3);
-            padding: 3px 8px;
-            border-radius: var(--radius-sm);
+            padding: 2px 6px;
+            border-radius: var(--radius);
             background: rgba(100, 87, 166, 0.2);
-            font-family: var(--font-mono);
+            box-shadow: var(--ring-5);
             font-size: 10px;
             font-weight: 600;
-            color: #ffffff;
+            letter-spacing: -0.05em;
+            line-height: 1;
+        }
+
+        .user-docket-badge .material-symbols-outlined {
+            color: rgba(157, 172, 255, 0.8);
         }
 
         .user-docket-badge .dot-active {
-            width: 5px;
-            height: 5px;
+            width: 4px;
+            height: 4px;
             border-radius: var(--radius-full);
             background-color: var(--cyan-accent);
-            box-shadow: 0 0 5px var(--cyan-accent);
-            animation: pulseAnimation 2s infinite;
+            box-shadow: 0 0 4px var(--cyan-accent);
+            animation: pulseAnimation 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
 
         /* ==========================================================================
@@ -212,20 +246,22 @@
        ========================================================================== */
         .admin-card {
             position: relative;
+            margin-bottom: 10px;
             border-radius: var(--radius-lg);
-            background: rgba(100, 87, 166, 0.28);
+            background: rgba(100, 87, 166, 0.3);
             border: 1px solid rgba(157, 172, 255, 0.3);
             padding: 14px;
             overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            box-shadow: var(--ring-10), 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
         }
 
+        /* Trama a puntini sullo sfondo della scheda */
         .admin-card::before {
             content: '';
             position: absolute;
             inset: 0;
             pointer-events: none;
-            opacity: 0.08;
+            opacity: 0.1;
             background-image: radial-gradient(var(--periwinkle) 1px, transparent 1px);
             background-size: 10px 10px;
         }
@@ -235,12 +271,11 @@
             position: absolute;
             right: -8px;
             top: -8px;
-            width: 125px;
-            height: 125px;
+            width: 128px;
+            height: 128px;
             pointer-events: none;
             transform: rotate(-6deg);
-            opacity: 0.9;
-            filter: drop-shadow(0 0 10px rgba(118, 229, 252, 0.35));
+            filter: drop-shadow(0 0 10px rgba(118, 229, 252, 0.4));
             z-index: 1;
         }
 
@@ -252,32 +287,31 @@
             align-items: center;
             gap: 6px;
             margin-bottom: 8px;
-            font-family: var(--font-mono);
-            font-size: 9.5px;
+            font-size: 10px;
+            color: var(--periwinkle);
         }
 
         .meta-tag {
-            background: rgba(61, 25, 54, 0.85);
+            background: rgba(61, 25, 54, 0.8);
             border: 1px solid rgba(157, 172, 255, 0.3);
             color: rgba(157, 172, 255, 0.9);
-            padding: 2px 7px;
-            border-radius: var(--radius-sm);
-            white-space: nowrap;
+            padding: 2px 8px;
+            border-radius: var(--radius);
+            backdrop-filter: blur(4px);
         }
 
         /* Badge dello stato di elaborazione pratica */
         .status-badge {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
             padding: 2px 8px;
-            border-radius: var(--radius-sm);
+            border-radius: var(--radius);
             font-weight: 600;
-            font-size: 9.5px;
             border: 1px solid rgba(118, 229, 252, 0.5);
             background: rgba(118, 229, 252, 0.15);
             color: var(--cyan-accent);
-            box-shadow: 0 0 8px rgba(118, 229, 252, 0.2);
+            box-shadow: 0 0 8px rgba(118, 229, 252, 0.15);
             transition: all 0.3s ease;
         }
 
@@ -287,7 +321,7 @@
             border-radius: var(--radius-full);
             background-color: var(--cyan-accent);
             box-shadow: 0 0 4px var(--cyan-accent);
-            animation: pulseAnimation 1.5s infinite;
+            animation: pulseAnimation 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
 
         /* Stato verifica (giallo/ambra) */
@@ -332,32 +366,28 @@
         .admin-title {
             position: relative;
             z-index: 2;
-            font-family: var(--font-sans);
-            font-size: 18px;
+            font-size: 19px;
             font-weight: 700;
-            line-height: 1.3;
-            color: #ffffff;
-            margin-bottom: 5px;
+            line-height: 1.375;
+            letter-spacing: -0.025em;
+            margin: 4px 0;
         }
 
         .admin-subtitle {
             position: relative;
             z-index: 2;
-            font-family: var(--font-sans);
-            font-size: 12.5px;
-            line-height: 1.45;
+            font-size: 10px;
+            line-height: 1.625;
             color: var(--periwinkle);
-            max-width: 255px;
+            max-width: 245px;
         }
 
         /* ==========================================================================
-       SEZIONE 1: CATEGORIA RECLAMO (GRIGLIA 2x2)
-       Quattro pulsanti interattivi con codice di settore e radio box
+       INTESTAZIONI DI SEZIONE
+       Etichetta ciano con quadratino + contatore a destra
        ========================================================================== */
         .section-container {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+            margin-bottom: 10px;
         }
 
         .section-header {
@@ -366,10 +396,10 @@
             justify-content: space-between;
             border-bottom: 1px solid rgba(157, 172, 255, 0.25);
             padding-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .section-label {
-            font-family: var(--font-mono);
             font-size: 11px;
             font-weight: 600;
             color: var(--cyan-accent);
@@ -386,15 +416,19 @@
             width: 6px;
             height: 6px;
             background-color: var(--cyan-accent);
-            border-radius: 1px;
+            border-radius: var(--radius-sm);
         }
 
         .section-counter {
-            font-family: var(--font-mono);
             font-size: 11px;
+            font-weight: 500;
             color: var(--periwinkle);
         }
 
+        /* ==========================================================================
+       SEZIONE 1: CATEGORIA RECLAMO (GRIGLIA 2x2)
+       Quattro pulsanti interattivi con codice di settore e radio box
+       ========================================================================== */
         .category-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -405,19 +439,16 @@
             background: rgba(100, 87, 166, 0.25);
             border: 1px solid rgba(157, 172, 255, 0.3);
             border-radius: var(--radius-md);
-            padding: 8px 10px;
+            padding: 8px;
             display: flex;
             align-items: center;
-            gap: 8px;
             cursor: pointer;
             text-align: left;
-            transition: all 0.2s ease;
-            position: relative;
+            transition: all 0.15s ease;
         }
 
         .category-card:hover {
             border-color: rgba(157, 172, 255, 0.6);
-            background: rgba(100, 87, 166, 0.35);
         }
 
         .category-card:active {
@@ -428,14 +459,15 @@
         .cat-radio-box {
             width: 14px;
             height: 14px;
-            border-radius: 2px;
+            margin-right: 8px;
+            border-radius: var(--radius-sm);
             border: 1px solid rgba(157, 172, 255, 0.6);
             background: rgba(61, 25, 54, 0.6);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
         }
 
         .cat-radio-box .radio-dot {
@@ -443,13 +475,11 @@
             height: 8px;
             border-radius: 1px;
             background-color: var(--cyan-accent);
-            box-shadow: 0 0 5px var(--cyan-accent);
+            box-shadow: 0 0 4px var(--cyan-accent);
             display: none;
         }
 
         .cat-info {
-            display: flex;
-            flex-direction: column;
             min-width: 0;
             flex: 1;
         }
@@ -461,21 +491,20 @@
             margin-bottom: 2px;
         }
 
-        .cat-meta-row .material-symbols-rounded {
-            font-size: 13px;
+        .cat-meta-row .material-symbols-outlined {
             color: var(--periwinkle);
         }
 
         .cat-sec-code {
-            font-family: var(--font-mono);
             font-size: 10px;
             color: rgba(157, 172, 255, 0.7);
         }
 
         .cat-title {
-            font-family: var(--font-sans);
-            font-size: 11.5px;
+            display: block;
+            font-size: 12px;
             font-weight: 500;
+            line-height: 1.25;
             color: rgba(255, 255, 255, 0.9);
             white-space: nowrap;
             overflow: hidden;
@@ -485,7 +514,7 @@
         /* Aspetto della categoria SELEZIONATA */
         .category-card.is-selected {
             border-color: var(--cyan-accent);
-            background: rgba(100, 87, 166, 0.65);
+            background: rgba(100, 87, 166, 0.7);
             box-shadow: 0 0 12px rgba(118, 229, 252, 0.25);
         }
 
@@ -498,10 +527,17 @@
             display: block;
         }
 
-        .category-card.is-selected .cat-meta-row .material-symbols-rounded,
+        .category-card.is-selected .cat-meta-row .material-symbols-outlined,
         .category-card.is-selected .cat-sec-code,
         .category-card.is-selected .cat-title {
             color: var(--cyan-accent);
+        }
+
+        .category-card.is-selected .cat-sec-code {
+            font-weight: 700;
+        }
+
+        .category-card.is-selected .cat-title {
             font-weight: 600;
         }
 
@@ -513,80 +549,77 @@
             display: flex;
             align-items: baseline;
             justify-content: space-between;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
         .complaint-main-label {
-            font-family: var(--font-sans);
             font-size: 13px;
             font-weight: 600;
-            color: #ffffff;
+            letter-spacing: -0.025em;
         }
 
         .complaint-limit-label {
-            font-family: var(--font-mono);
             font-size: 10px;
             color: var(--periwinkle);
         }
 
         .terminal-container {
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             border: 1px solid rgba(157, 172, 255, 0.3);
-            background: rgba(100, 87, 166, 0.28);
+            background: rgba(100, 87, 166, 0.3);
             overflow: hidden;
-            transition: all 0.2s ease;
+            box-shadow: var(--ring-5);
+            transition: all 0.15s ease;
         }
 
         .terminal-container:focus-within {
             border-color: var(--cyan-accent);
-            box-shadow: var(--glow-cyan);
+            box-shadow: var(--ring-5), 0 0 12px rgba(118, 229, 252, 0.25);
         }
 
         .terminal-top-bar {
-            background: rgba(61, 25, 54, 0.85);
-            padding: 5px 10px;
+            background: rgba(61, 25, 54, 0.8);
+            padding: 4px 10px;
             border-bottom: 1px solid rgba(157, 172, 255, 0.25);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-family: var(--font-mono);
         }
 
         .terminal-top-bar .bar-title {
-            font-size: 9.5px;
+            font-size: 10px;
             color: rgba(118, 229, 252, 0.9);
-            letter-spacing: 0.05em;
+            letter-spacing: 0.025em;
         }
 
         .terminal-top-bar .bar-format {
             font-size: 9px;
             color: rgba(157, 172, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .terminal-body {
-            padding: 8px 10px;
+            padding: 10px;
         }
 
         .terminal-textarea {
             width: 100%;
-            min-height: 60px;
-            max-height: 120px;
+            min-height: 58px;
             background: rgba(44, 0, 38, 0.45);
             border: 1px solid rgba(157, 172, 255, 0.25);
-            border-radius: var(--radius-sm);
+            border-radius: var(--radius);
             padding: 8px;
-            font-family: var(--font-sans);
-            font-size: 12px;
-            line-height: 1.45;
+            font-size: 11px;
+            line-height: 1.625;
             color: var(--cyan-accent);
             resize: none;
             outline: none;
-            transition: border-color 0.2s ease;
+            transition: border-color 0.15s ease;
         }
 
         .terminal-textarea::placeholder {
-            color: rgba(118, 229, 252, 0.6);
-            font-size: 11px;
+            color: rgba(118, 229, 252, 0.7);
         }
 
         .terminal-textarea:focus {
@@ -597,17 +630,15 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 6px;
-            padding-top: 5px;
+            margin-top: 4px;
+            padding-top: 6px;
             border-top: 1px dashed rgba(157, 172, 255, 0.2);
-            font-family: var(--font-mono);
             font-size: 10px;
         }
 
         .precision-note {
             font-style: italic;
             color: rgba(157, 172, 255, 0.7);
-            font-size: 9.5px;
         }
 
         .char-counter {
@@ -624,28 +655,46 @@
        SEZIONE 3: LIVELLO DI INGIUSTIZIA COSMICA
        Segmented control a 4 gradini (Bassa, Media, Alta, Apocalittica)
        ========================================================================== */
+        .level-section {
+            margin-bottom: 12px;
+        }
+
+        /* In questa sezione l'intestazione non ha la riga divisoria */
+        .level-header {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 4px;
+        }
+
+        .level-counter {
+            font-size: 10px;
+            letter-spacing: -0.025em;
+        }
+
         .level-selector-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 4px;
             padding: 4px;
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             border: 1px solid rgba(157, 172, 255, 0.3);
-            background: rgba(100, 87, 166, 0.25);
+            background: rgba(100, 87, 166, 0.3);
+            box-shadow: var(--ring-5);
         }
 
         .level-button {
             background: rgba(100, 87, 166, 0.2);
             border: 1px solid transparent;
-            border-radius: var(--radius-sm);
+            border-radius: var(--radius);
             padding: 6px 2px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            text-align: center;
+            text-transform: uppercase;
             cursor: pointer;
-            font-family: var(--font-mono);
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
         }
 
         .level-button:hover {
@@ -657,24 +706,38 @@
         }
 
         .level-badge-code {
+            display: block;
             font-size: 8px;
             line-height: 1;
             margin-bottom: 2px;
+            letter-spacing: -0.025em;
             font-weight: 500;
             color: rgba(157, 172, 255, 0.7);
         }
 
         .level-text {
-            font-size: 9.5px;
+            font-size: 10px;
             font-weight: 500;
+            letter-spacing: -0.025em;
             color: var(--periwinkle);
             white-space: nowrap;
         }
 
         /* Colore di avviso per Apocalittica */
-        .level-button.is-crit .level-badge-code,
-        .level-button.is-crit .level-text {
+        .level-button.is-crit:hover {
+            border-color: var(--alert-crit);
+        }
+
+        .level-button.is-crit .level-badge-code {
             color: var(--alert-crit);
+            font-weight: 700;
+        }
+
+        .level-button.is-crit .level-text {
+            font-size: 9px;
+            letter-spacing: -0.05em;
+            color: var(--alert-crit);
+            font-weight: 600;
         }
 
         /* Stato SELEZIONATO dei livelli 1, 2 e 3 */
@@ -685,7 +748,7 @@
         }
 
         .level-button.is-selected .level-badge-code {
-            color: rgba(44, 0, 38, 0.85);
+            color: rgba(61, 25, 54, 0.8);
             font-weight: 700;
         }
 
@@ -696,45 +759,55 @@
 
         /* Stato SELEZIONATO specifico per Apocalittica */
         .level-button.is-crit.is-selected {
-            background: var(--alert-crit);
-            border-color: var(--alert-crit);
-            box-shadow: 0 0 12px rgba(255, 107, 139, 0.45);
+            background: var(--alert-crit-strong);
+            border-color: var(--alert-crit-strong);
+            box-shadow: 0 0 14px rgba(255, 75, 114, 0.65), 0 0 4px var(--alert-crit-strong);
         }
 
         .level-button.is-crit.is-selected .level-badge-code,
         .level-button.is-crit.is-selected .level-text {
-            color: #1a0208;
-            font-weight: 700;
+            color: #1a0218;
+            font-weight: 800;
         }
 
         /* ==========================================================================
        PULSANTE PRINCIPALE (PRIMARY ACTION)
        Pulsante "INVIA RECLAMO" con animazione di invio
        ========================================================================== */
+        .action-container {
+            margin-bottom: 10px;
+        }
+
         .submit-button {
             width: 100%;
             min-height: 46px;
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             background: var(--cyan-btn);
             border: 1px solid var(--cyan-accent);
             color: var(--plum-deep);
-            font-family: var(--font-mono);
             font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.025em;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             cursor: pointer;
-            box-shadow: var(--glow-cyan-btn), inset 0 1px 0 rgba(255, 255, 255, 0.45);
-            transition: all 0.25s ease;
+            box-shadow: 0 0 20px rgba(75, 192, 217, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+            transition: all 0.15s ease;
+        }
+
+        .submit-button .material-symbols-outlined {
+            transition: transform 0.15s ease;
         }
 
         .submit-button:hover:not(:disabled) {
             background: var(--cyan-accent);
-            box-shadow: 0 0 25px rgba(118, 229, 252, 0.6);
+        }
+
+        .submit-button:hover:not(:disabled) .material-symbols-outlined {
+            transform: translateX(2px);
         }
 
         .submit-button:active:not(:disabled) {
@@ -751,36 +824,35 @@
        Disclaimer istituzionale con bordo tratteggiato e stringa terminale
        ========================================================================== */
         .disclaimer-box {
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             background: rgba(100, 87, 166, 0.2);
             border: 1px dashed rgba(157, 172, 255, 0.35);
-            padding: 9px 12px;
+            box-shadow: var(--ring-5);
+            padding: 10px;
             display: flex;
             align-items: flex-start;
             gap: 8px;
         }
 
-        .disclaimer-box .material-symbols-rounded {
+        .disclaimer-box .material-symbols-outlined {
             color: var(--cyan-accent);
-            font-size: 16px;
             flex-shrink: 0;
-            margin-top: 1px;
+            margin-top: 2px;
         }
 
         .disclaimer-text {
-            font-family: var(--font-sans);
             font-size: 11px;
-            line-height: 1.4;
+            line-height: 1.375;
             color: var(--periwinkle);
         }
 
         .app-footer {
+            margin-top: 8px;
             border-top: 1px solid rgba(157, 172, 255, 0.2);
-            padding-top: 6px;
+            padding-top: 4px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-family: var(--font-mono);
             font-size: 9px;
             color: rgba(157, 172, 255, 0.7);
             text-transform: uppercase;
@@ -790,15 +862,14 @@
         .footer-active-status {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
         }
 
         .footer-active-status .dot-indicator {
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
             border-radius: var(--radius-full);
             background-color: var(--cyan-accent);
-            box-shadow: 0 0 4px var(--cyan-accent);
         }
 
         /* ==========================================================================
@@ -830,7 +901,7 @@
             padding: 20px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), var(--glow-cyan);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 12px rgba(118, 229, 252, 0.35);
         }
 
         .verdict-modal-stamp {
@@ -839,12 +910,11 @@
             right: 10px;
             border: 2px dashed;
             padding: 6px 12px;
-            font-family: var(--font-mono);
             font-weight: 700;
             font-size: 13px;
             letter-spacing: 0.1em;
             transform: rotate(-10deg);
-            border-radius: var(--radius-sm);
+            border-radius: var(--radius);
         }
 
         .verdict-modal-stamp.stamp-approved {
@@ -860,30 +930,26 @@
         }
 
         .verdict-header-code {
-            font-family: var(--font-mono);
             font-size: 10px;
             color: var(--periwinkle);
             margin-bottom: 4px;
         }
 
         .verdict-title {
-            font-family: var(--font-sans);
             font-size: 18px;
             font-weight: 700;
-            color: #ffffff;
             margin-bottom: 12px;
         }
 
         .verdict-details-box {
             background: rgba(44, 0, 38, 0.6);
             border: 1px solid rgba(157, 172, 255, 0.25);
-            border-radius: var(--radius-sm);
+            border-radius: var(--radius);
             padding: 10px;
             margin-bottom: 14px;
             display: flex;
             flex-direction: column;
             gap: 6px;
-            font-family: var(--font-mono);
             font-size: 11px;
         }
 
@@ -899,25 +965,22 @@
         }
 
         .verdict-decree-text {
-            font-family: var(--font-sans);
-            font-size: 13px;
+            font-size: 12px;
             line-height: 1.5;
-            color: #ffffff;
             padding: 10px;
             background: rgba(100, 87, 166, 0.2);
             border-left: 3px solid var(--cyan-accent);
-            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            border-radius: 0 var(--radius) var(--radius) 0;
             margin-bottom: 16px;
         }
 
         .verdict-dismiss-btn {
             width: 100%;
             padding: 10px;
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             background: var(--purple-box);
             border: 1px solid var(--periwinkle);
             color: #ffffff;
-            font-family: var(--font-mono);
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
@@ -939,20 +1002,6 @@
         /* ==========================================================================
        KEYFRAMES ANIMAZIONI
        ========================================================================== */
-        @keyframes pulseAnimation {
-
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.4;
-                transform: scale(0.9);
-            }
-        }
-
         @keyframes spinAnimation {
             from {
                 transform: rotate(0deg);
@@ -982,43 +1031,201 @@
     <!-- Contenitore centratore mobile dell'applicazione -->
     <main class="app-viewport">
 
-        <!-- Illustrazione vettoriale di sfondo: costellazioni, orbite e coordinate -->
+        <!-- Illustrazione vettoriale di sfondo: nebulose, costellazioni, orbite e stelle -->
         <div class="space-background" aria-hidden="true">
-            <svg viewBox="0 0 390 884" preserveAspectRatio="none">
+            <svg viewBox="0 0 390 884" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
+                    <radialGradient id="nebula-top" cx="80%" cy="14%" r="45%">
+                        <stop offset="0%" stop-color="#6457A6" stop-opacity="0.48" />
+                        <stop offset="40%" stop-color="#5C2751" stop-opacity="0.28" />
+                        <stop offset="75%" stop-color="#240822" stop-opacity="0.12" />
+                        <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+                    </radialGradient>
+                    <radialGradient id="nebula-cyan-mid" cx="12%" cy="42%" r="38%">
+                        <stop offset="0%" stop-color="#76E5FC" stop-opacity="0.22" />
+                        <stop offset="45%" stop-color="#4BC0D9" stop-opacity="0.10" />
+                        <stop offset="80%" stop-color="#240822" stop-opacity="0" />
+                    </radialGradient>
+                    <radialGradient id="nebula-bottom" cx="22%" cy="80%" r="42%">
+                        <stop offset="0%" stop-color="#76E5FC" stop-opacity="0.20" />
+                        <stop offset="35%" stop-color="#6457A6" stop-opacity="0.18" />
+                        <stop offset="70%" stop-color="#240822" stop-opacity="0" />
+                    </radialGradient>
+                    <radialGradient id="nebula-deep-right" cx="85%" cy="70%" r="35%">
+                        <stop offset="0%" stop-color="#6457A6" stop-opacity="0.25" />
+                        <stop offset="60%" stop-color="#5C2751" stop-opacity="0.10" />
+                        <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+                    </radialGradient>
                     <filter id="glow-star-intense" x="-100%" y="-100%" width="300%" height="300%">
-                        <feGaussianBlur stdDeviation="1.5" result="blur1" />
+                        <feGaussianBlur stdDeviation="1.2" result="blur1" />
+                        <feGaussianBlur stdDeviation="2.4" result="blur2" />
                         <feMerge>
+                            <feMergeNode in="blur2" />
                             <feMergeNode in="blur1" />
                             <feMergeNode in="SourceGraphic" />
                         </feMerge>
                     </filter>
+                    <filter id="glow-star-soft" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="0.7" result="softBlur" />
+                        <feMerge>
+                            <feMergeNode in="softBlur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
                 </defs>
+
+                <!-- Nebulose -->
+                <rect width="100%" height="100%" fill="url(#nebula-top)" />
+                <rect width="100%" height="100%" fill="url(#nebula-cyan-mid)" />
+                <rect width="100%" height="100%" fill="url(#nebula-bottom)" />
+                <rect width="100%" height="100%" fill="url(#nebula-deep-right)" />
+
                 <!-- Linee tratteggiate di costellazione cosmica -->
-                <g stroke="#76E5FC" stroke-width="0.6" stroke-dasharray="2 3" opacity="0.35">
+                <g stroke="#76E5FC" stroke-width="0.55" stroke-dasharray="2 3" opacity="0.35">
                     <line x1="28" y1="75" x2="92" y2="115" />
                     <line x1="92" y1="115" x2="145" y2="38" />
                     <line x1="145" y1="38" x2="215" y2="58" />
                     <line x1="215" y1="58" x2="320" y2="75" />
+                    <line x1="320" y1="75" x2="362" y2="45" />
+                </g>
+                <g stroke="#9DACFF" stroke-width="0.5" stroke-dasharray="1.5 2.5" opacity="0.3">
+                    <line x1="28" y1="195" x2="75" y2="232" />
+                    <line x1="75" y1="232" x2="42" y2="268" />
+                    <line x1="42" y1="268" x2="88" y2="330" />
+                    <line x1="350" y1="180" x2="376" y2="240" />
+                    <line x1="376" y1="240" x2="320" y2="290" />
+                    <line x1="320" y1="290" x2="364" y2="388" />
+                </g>
+                <g stroke="#76E5FC" stroke-width="0.5" stroke-dasharray="2 3" opacity="0.32">
                     <line x1="25" y1="468" x2="60" y2="515" />
                     <line x1="60" y1="515" x2="30" y2="545" />
+                    <line x1="30" y1="545" x2="82" y2="620" />
                     <line x1="82" y1="620" x2="140" y2="660" />
+                    <line x1="368" y1="495" x2="352" y2="605" />
+                    <line x1="352" y1="605" x2="335" y2="675" />
                     <line x1="335" y1="675" x2="290" y2="810" />
                 </g>
+
                 <!-- Cerchi orbitali e coordinate celesti -->
-                <g stroke="#9DACFF" stroke-width="0.4" opacity="0.2">
+                <g stroke="#9DACFF" stroke-width="0.4" opacity="0.18">
                     <circle cx="195" cy="420" r="160" stroke-dasharray="3 5" fill="none" />
                     <circle cx="195" cy="420" r="280" stroke-dasharray="4 8" fill="none" />
                     <line x1="195" y1="0" x2="195" y2="844" stroke-dasharray="2 6" />
                 </g>
-                <!-- Stelle e punti di riferimento galattici -->
-                <circle cx="28" cy="75" r="1.5" fill="#76E5FC" opacity="0.9" filter="url(#glow-star-intense)" />
-                <circle cx="92" cy="115" r="1.8" fill="#ffffff" opacity="0.95" />
-                <circle cx="215" cy="58" r="1.5" fill="#76E5FC" opacity="0.9" />
-                <circle cx="320" cy="75" r="2" fill="#ffffff" opacity="0.95" />
-                <circle cx="350" cy="180" r="1.4" fill="#76E5FC" opacity="0.9" />
-                <circle cx="25" cy="468" r="1.8" fill="#76E5FC" opacity="0.95" />
-                <circle cx="335" cy="675" r="2" fill="#76E5FC" opacity="0.95" />
+
+                <!-- Polvere di stelle (bianca, ciano, pervinca) -->
+                <g fill="#ffffff" opacity="0.55">
+                    <circle cx="18" cy="130" r="0.5" />
+                    <circle cx="52" cy="160" r="0.6" />
+                    <circle cx="110" cy="80" r="0.5" />
+                    <circle cx="135" cy="145" r="0.5" />
+                    <circle cx="168" cy="175" r="0.6" />
+                    <circle cx="225" cy="120" r="0.5" />
+                    <circle cx="278" cy="95" r="0.6" />
+                    <circle cx="305" cy="150" r="0.5" />
+                    <circle cx="372" cy="110" r="0.6" />
+                    <circle cx="15" cy="290" r="0.5" />
+                    <circle cx="62" cy="350" r="0.6" />
+                    <circle cx="115" cy="270" r="0.5" />
+                    <circle cx="280" cy="260" r="0.6" />
+                    <circle cx="335" cy="225" r="0.5" />
+                    <circle cx="382" cy="330" r="0.6" />
+                    <circle cx="20" cy="610" r="0.5" />
+                    <circle cx="58" cy="670" r="0.6" />
+                    <circle cx="105" cy="580" r="0.5" />
+                    <circle cx="170" cy="610" r="0.6" />
+                    <circle cx="215" cy="590" r="0.5" />
+                    <circle cx="255" cy="650" r="0.6" />
+                    <circle cx="310" cy="575" r="0.5" />
+                    <circle cx="375" cy="640" r="0.6" />
+                    <circle cx="38" cy="720" r="0.5" />
+                    <circle cx="95" cy="745" r="0.6" />
+                    <circle cx="120" cy="810" r="0.5" />
+                    <circle cx="210" cy="770" r="0.6" />
+                    <circle cx="260" cy="740" r="0.5" />
+                    <circle cx="340" cy="765" r="0.6" />
+                    <circle cx="378" cy="785" r="0.5" />
+                </g>
+                <g fill="#76E5FC" opacity="0.65">
+                    <circle cx="38" cy="95" r="0.7" />
+                    <circle cx="125" cy="60" r="0.8" />
+                    <circle cx="175" cy="135" r="0.7" />
+                    <circle cx="260" cy="45" r="0.8" />
+                    <circle cx="345" cy="90" r="0.7" />
+                    <circle cx="55" cy="215" r="0.8" />
+                    <circle cx="330" cy="310" r="0.7" />
+                    <circle cx="48" cy="490" r="0.8" />
+                    <circle cx="160" cy="540" r="0.7" />
+                    <circle cx="230" cy="690" r="0.8" />
+                    <circle cx="315" cy="725" r="0.7" />
+                    <circle cx="365" cy="710" r="0.8" />
+                </g>
+                <g fill="#9DACFF" opacity="0.6">
+                    <circle cx="85" cy="165" r="0.7" />
+                    <circle cx="198" cy="65" r="0.8" />
+                    <circle cx="292" cy="130" r="0.7" />
+                    <circle cx="22" cy="375" r="0.8" />
+                    <circle cx="358" cy="275" r="0.7" />
+                    <circle cx="112" cy="640" r="0.8" />
+                    <circle cx="275" cy="600" r="0.7" />
+                    <circle cx="70" cy="790" r="0.8" />
+                    <circle cx="245" cy="820" r="0.7" />
+                    <circle cx="325" cy="830" r="0.8" />
+                </g>
+
+                <!-- Stelle principali (nodi delle costellazioni) -->
+                <circle cx="28" cy="75" r="1.3" fill="#76E5FC" opacity="0.9" filter="url(#glow-star-soft)" />
+                <circle cx="92" cy="115" r="1.5" fill="#ffffff" opacity="0.95" filter="url(#glow-star-intense)" />
+                <circle cx="145" cy="38" r="1.2" fill="#9DACFF" opacity="0.85" />
+                <circle cx="215" cy="58" r="1.4" fill="#76E5FC" opacity="0.9" filter="url(#glow-star-soft)" />
+                <circle cx="320" cy="75" r="1.8" fill="#ffffff" opacity="0.95" filter="url(#glow-star-intense)" />
+                <circle cx="362" cy="45" r="1.2" fill="#76E5FC" opacity="0.85" />
+                <circle cx="28" cy="195" r="1.3" fill="#ffffff" opacity="0.9" />
+                <circle cx="75" cy="232" r="1.1" fill="#9DACFF" opacity="0.85" />
+                <circle cx="42" cy="268" r="1.4" fill="#cabeff" opacity="0.9" />
+                <circle cx="88" cy="330" r="1.2" fill="#76E5FC" opacity="0.85" />
+                <circle cx="350" cy="180" r="1.3" fill="#76E5FC" opacity="0.9" filter="url(#glow-star-soft)" />
+                <circle cx="376" cy="240" r="1.2" fill="#ffffff" opacity="0.85" />
+                <circle cx="320" cy="290" r="1.3" fill="#9DACFF" opacity="0.85" />
+                <circle cx="364" cy="388" r="1.1" fill="#76E5FC" opacity="0.8" />
+                <circle cx="25" cy="468" r="1.8" fill="#76E5FC" opacity="0.95" filter="url(#glow-star-intense)" />
+                <circle cx="60" cy="515" r="1.1" fill="#ffffff" opacity="0.8" />
+                <circle cx="30" cy="545" r="1.4" fill="#9DACFF" opacity="0.9" />
+                <circle cx="82" cy="620" r="1.5" fill="#ffffff" opacity="0.95" filter="url(#glow-star-soft)" />
+                <circle cx="140" cy="660" r="1.1" fill="#cabeff" opacity="0.85" />
+                <circle cx="368" cy="495" r="1.4" fill="#9DACFF" opacity="0.9" />
+                <circle cx="352" cy="605" r="1.5" fill="#76E5FC" opacity="0.9" filter="url(#glow-star-soft)" />
+                <circle cx="335" cy="675" r="1.8" fill="#76E5FC" opacity="0.95" filter="url(#glow-star-intense)" />
+                <circle cx="290" cy="810" r="1.4" fill="#ffffff" opacity="0.9" filter="url(#glow-star-soft)" />
+                <circle cx="45" cy="760" r="1.3" fill="#cabeff" opacity="0.85" />
+                <circle cx="165" cy="790" r="1.1" fill="#ffffff" opacity="0.8" />
+                <circle cx="355" cy="825" r="1.2" fill="#76E5FC" opacity="0.85" />
+
+                <!-- Stelle scintillanti a quattro punte -->
+                <g transform="translate(338, 122)" filter="url(#glow-star-intense)">
+                    <path d="M0,-6.5 L1.3,-1.3 L6.5,0 L1.3,1.3 L0,6.5 L-1.3,1.3 L-6.5,0 L-1.3,-1.3 Z" fill="#76E5FC" opacity="0.95" />
+                    <circle cx="0" cy="0" r="1.4" fill="#ffffff" />
+                </g>
+                <g transform="translate(54, 88)" filter="url(#glow-star-soft)">
+                    <path d="M0,-4.5 L0.9,-0.9 L4.5,0 L0.9,0.9 L0,4.5 L-0.9,0.9 L-4.5,0 L-0.9,-0.9 Z" fill="#ffffff" opacity="0.9" />
+                    <circle cx="0" cy="0" r="0.9" fill="#76E5FC" />
+                </g>
+                <g transform="translate(30, 545)" filter="url(#glow-star-intense)">
+                    <path d="M0,-5 L1,-1 L5,0 L1,1 L0,5 L-1,1 L-5,0 L-1,-1 Z" fill="#9DACFF" opacity="0.95" />
+                    <circle cx="0" cy="0" r="1.1" fill="#ffffff" />
+                </g>
+                <g transform="translate(352, 605)" filter="url(#glow-star-intense)">
+                    <path d="M0,-5.5 L1.1,-1.1 L5.5,0 L1.1,1.1 L0,5.5 L-1.1,1.1 L-5.5,0 L-1.1,-1.1 Z" fill="#76E5FC" opacity="0.9" />
+                    <circle cx="0" cy="0" r="1.2" fill="#ffffff" />
+                </g>
+                <g transform="translate(190, 720)" filter="url(#glow-star-soft)">
+                    <path d="M0,-4 L0.8,-0.8 L4,0 L0.8,0.8 L0,4 L-0.8,0.8 L-4,0 L-0.8,-0.8 Z" fill="#cabeff" opacity="0.85" />
+                    <circle cx="0" cy="0" r="0.8" fill="#ffffff" />
+                </g>
+                <g transform="translate(88, 330)" filter="url(#glow-star-soft)">
+                    <path d="M0,-3.8 L0.8,-0.8 L3.8,0 L0.8,0.8 L0,3.8 L-0.8,0.8 L-3.8,0 L-0.8,-0.8 Z" fill="#76E5FC" opacity="0.85" />
+                    <circle cx="0" cy="0" r="0.8" fill="#ffffff" />
+                </g>
             </svg>
         </div>
 
@@ -1031,19 +1238,19 @@
             <header class="app-header">
                 <div class="header-brand">
                     <div class="brand-logo-icon">
-                        <!-- Icona a spirale galattica -->
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-                        </svg>
+                        <!-- Logo Saturno generato da Stitch -->
+                        <img src="https://lh3.googleusercontent.com/aida/AEtjO1UtZSnZzAU8Bx8TGjeG4jc-WdmJXV-ENOrQA71d0pdrJG3qYScWVgvbFH3laUVVET0s_P08isggMylr8Q2PdBR_SqSsxFd2YvqvxP973Eif7wYiLpsOtslvdn5JG1-ogtiFgLEGhZdXUNkWIeif05WpMti2MXE1kJ3NQ3HZFc0WQ2qSbfhAeaXpVPnC7oXpP1i62L8YMe5NmFwj2oLaH_upC9Ec2ZE0XZcgPqwvPflPUrtWIxR9T-fwu4NJ"
+                            alt="Logo Cosmic Complaints">
                     </div>
-                    <span class="brand-title">COSMIC COMPLAINTS</span>
-                    <span class="brand-version">v2.4.9</span>
+                    <div class="brand-name">
+                        <span class="brand-title">COSMIC COMPLAINTS</span>
+                        <span class="brand-version">v2.4.9</span>
+                    </div>
                 </div>
 
                 <div class="user-docket-badge">
-                    <span class="material-symbols-rounded">account_circle</span>
-                    <span>[USR-404]</span>
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <span>[NICOLE]</span>
                     <span class="dot-active"></span>
                 </div>
             </header>
@@ -1064,15 +1271,13 @@
                         <path id="stamp-text-arc-top" d="M 18,70 A 52,52 0 0,1 122,70" fill="none" />
                         <path id="stamp-text-arc-bottom" d="M 122,70 A 52,52 0 0,1 18,70" fill="none" />
                     </defs>
-                    <text fill="#76E5FC" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700"
+                    <text fill="#76E5FC" font-family="JetBrains Mono, monospace" font-size="8.2" font-weight="700"
                         letter-spacing="0.22em">
-                        <textPath href="#stamp-text-arc-top" startOffset="50%" text-anchor="middle">REGISTRO UNICO
-                        </textPath>
+                        <textPath href="#stamp-text-arc-top" startOffset="50%" text-anchor="middle">REGISTRO UNICO</textPath>
                     </text>
-                    <text fill="#9DACFF" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="600"
+                    <text fill="#9DACFF" font-family="JetBrains Mono, monospace" font-size="7.5" font-weight="600"
                         letter-spacing="0.18em">
-                        <textPath href="#stamp-text-arc-bottom" startOffset="50%" text-anchor="middle">UFFICIO UNIVERSO
-                        </textPath>
+                        <textPath href="#stamp-text-arc-bottom" startOffset="50%" text-anchor="middle">UFFICIO UNIVERSO</textPath>
                     </text>
                     <circle cx="24" cy="70" r="1.8" fill="#76E5FC" />
                     <circle cx="116" cy="70" r="1.8" fill="#76E5FC" />
@@ -1080,7 +1285,8 @@
                         <circle cx="14" cy="14" r="13" stroke="#76E5FC" stroke-width="0.8" stroke-dasharray="2 2"
                             opacity="0.6" />
                         <polygon points="14,2 17.5,10.5 26,14 17.5,17.5 14,26 10.5,17.5 2,14 10.5,10.5"
-                            fill="rgba(118,229,252,0.12)" stroke="#76E5FC" stroke-width="1" />
+                            fill="rgba(118,229,252,0.12)" stroke="#76E5FC" stroke-width="1" opacity="0.85" />
+                        <circle cx="14" cy="14" r="2.2" fill="#76E5FC" />
                         <path d="M9.5 14L12.5 17L18.5 11" stroke="#76E5FC" stroke-width="1.8" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </g>
@@ -1117,7 +1323,7 @@
                         </div>
                         <div class="cat-info">
                             <div class="cat-meta-row">
-                                <span class="material-symbols-rounded">heart_broken</span>
+                                <span class="material-symbols-outlined">heart_broken</span>
                                 <span class="cat-sec-code">SEC-A</span>
                             </div>
                             <span class="cat-title">Amore e relazioni</span>
@@ -1131,7 +1337,7 @@
                         </div>
                         <div class="cat-info">
                             <div class="cat-meta-row">
-                                <span class="material-symbols-rounded">work_outline</span>
+                                <span class="material-symbols-outlined">work_outline</span>
                                 <span class="cat-sec-code">SEC-B</span>
                             </div>
                             <span class="cat-title">Lavoro e studio</span>
@@ -1145,7 +1351,7 @@
                         </div>
                         <div class="cat-info">
                             <div class="cat-meta-row">
-                                <span class="material-symbols-rounded">bolt</span>
+                                <span class="material-symbols-outlined">bolt</span>
                                 <span class="cat-sec-code">SEC-C</span>
                             </div>
                             <span class="cat-title">Sfortuna cosmica</span>
@@ -1159,7 +1365,7 @@
                         </div>
                         <div class="cat-info">
                             <div class="cat-meta-row">
-                                <span class="material-symbols-rounded">schedule</span>
+                                <span class="material-symbols-outlined">schedule</span>
                                 <span class="cat-sec-code">SEC-D</span>
                             </div>
                             <span class="cat-title">Vita quotidiana</span>
@@ -1198,10 +1404,10 @@
             <!-- ====================================================================
            5. LIVELLO DI INGIUSTIZIA COSMICA (SEGMENTED SWITCHER A 4 LIVELLI)
            ==================================================================== -->
-            <section class="section-container" aria-label="Livello di ingiustizia">
-                <div class="section-header">
+            <section class="section-container level-section" aria-label="Livello di ingiustizia">
+                <div class="section-header level-header">
                     <span class="section-label">LIVELLO DI INGIUSTIZIA COSMICA</span>
-                    <span class="section-counter">GRADO CALAMITÀ</span>
+                    <span class="section-counter level-counter">GRADO CALAMITÀ</span>
                 </div>
 
                 <div class="level-selector-grid" id="level-container">
@@ -1215,13 +1421,13 @@
                         <span class="level-text">MEDIA</span>
                     </button>
 
-                    <!-- Livello Alta selezionato di default come da schermata -->
-                    <button type="button" class="level-button is-selected" data-level="alta">
+                    <button type="button" class="level-button" data-level="alta">
                         <span class="level-badge-code">LV.03</span>
                         <span class="level-text">ALTA</span>
                     </button>
 
-                    <button type="button" class="level-button is-crit" data-level="apocalittica">
+                    <!-- Livello Apocalittica selezionato di default come nel riferimento -->
+                    <button type="button" class="level-button is-crit is-selected" data-level="apocalittica">
                         <span class="level-badge-code">CRIT</span>
                         <span class="level-text">APOCALITTICA</span>
                     </button>
@@ -1233,7 +1439,7 @@
            ==================================================================== -->
             <div class="action-container">
                 <button type="button" class="submit-button" id="submit-complaint-btn">
-                    <span class="material-symbols-rounded" id="submit-btn-icon">send</span>
+                    <span class="material-symbols-outlined" id="submit-btn-icon">send</span>
                     <span id="submit-btn-text">INVIA RECLAMO</span>
                 </button>
             </div>
@@ -1242,7 +1448,7 @@
            7. NOTA INFORMATIVA E FOOTER DI SISTEMA
            ==================================================================== -->
             <div class="disclaimer-box">
-                <span class="material-symbols-rounded">info</span>
+                <span class="material-symbols-outlined">info</span>
                 <p class="disclaimer-text">
                     Ogni reclamo riceverà una sentenza. L’Universo si riserva il diritto di respingerlo senza preavviso.
                 </p>
@@ -1303,7 +1509,7 @@
         /* === 1. VARIABILI DI STATO DELL'APPLICAZIONE === */
         // Memorizziamo la categoria e il livello selezionati dall'utente
         let selectedCategory = 'amore';
-        let selectedLevel = 'alta';
+        let selectedLevel = 'apocalittica';
         let isTransmitting = false;
 
         // Riferimenti agli elementi HTML principali della pagina
